@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 
 public class UserBOImpl implements UserBO {
 
-    private final UserDAO userDAO = (UserDAO) DAOFactory.getDAOFactory().getDAOType(DAOFactory.DAOTypes.USER);
+    private UserDAO userDAO = (UserDAO) DAOFactory.getDAOFactory().getDAOType(DAOFactory.DAOTypes.USER);
 
     @Override
     public void checkCredentialAndLogin(UserDTO userDTO) throws SQLException, IOException {

@@ -16,6 +16,8 @@ public class Navigation {
     @Setter
     private static Stage primaryStage;
 
+
+
     public static void navigateToDashboard() {
         try {
             // Load both FXML files into their respective Parent objects

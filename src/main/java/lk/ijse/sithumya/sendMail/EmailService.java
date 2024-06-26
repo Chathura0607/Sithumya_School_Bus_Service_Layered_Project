@@ -1,10 +1,13 @@
 package lk.ijse.sithumya.sendMail;
 
 import javafx.scene.control.Alert;
+import lk.ijse.sithumya.bo.BOFactory;
+import lk.ijse.sithumya.bo.custom.GuardianBO;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
@@ -15,27 +18,35 @@ public class EmailService {
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 
-    /*public static void sendBusArrivalEmail(String busId, String arrivalTime) {
+    private static GuardianBO guardianBO = (GuardianBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.GUARDIAN);
+
+    public static void sendBusArrivalEmail(String busId, String arrivalTime) {
         String subject = "Bus Arrival Notification";
         String body = "Bus ID " + busId + " will arrive at " + arrivalTime + ".";
 
-        List<String> guardianEmails = new GuardianRepository().getAllGuardianEmails();
-
-        for (String recipientEmail : guardianEmails) {
-            sendEmail(recipientEmail, subject, body);
+        try {
+            List<String> guardianEmails = guardianBO.getAllGuardianEmails();
+            for (String recipientEmail : guardianEmails) {
+                sendEmail(recipientEmail, subject, body);
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-    }*/
+    }
 
-    /*public static void sendBusReturnEmail(String busId, String returnTime) {
+    public static void sendBusReturnEmail(String busId, String returnTime) {
         String subject = "Bus Return Notification";
         String body = "Bus ID " + busId + " will return at " + returnTime + ".";
 
-        List<String> guardianEmails = new GuardianRepository().getAllGuardianEmails();
-
-        for (String recipientEmail : guardianEmails) {
-            sendEmail(recipientEmail, subject, body);
+        try {
+            List<String> guardianEmails = guardianBO.getAllGuardianEmails();
+            for (String recipientEmail : guardianEmails) {
+                sendEmail(recipientEmail, subject, body);
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-    }*/
+    }
 
     public static void sendLoginSuccessEmail(String userName, String loginTime) {
         String recipientEmail = "achinipramodhya4@gmail.com";
