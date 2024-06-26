@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="dashboard" maxHeight="675.0" maxWidth="1200.0" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.PageController">
+   <children>
+      <Pane fx:id="paneId" prefHeight="675.0" prefWidth="254.0" style="-fx-background-color: #FED3B6;">
+         <children>
+            <ImageView fitHeight="267.0" fitWidth="261.0" layoutX="-2.0" layoutY="-68.0">
+               <image>
+                  <Image url="@../asserts/icon/logo.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="199.0" onAction="#btnStudentOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Student">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-students-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="319.0" onAction="#btnDriverOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Driver">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-driver-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="379.0" onAction="#btnBusOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Bus" textAlignment="CENTER">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-bus-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="439.0" onAction="#btnFillingOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Filling ">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-filling-station-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="499.0" onAction="#btnInventoryOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Inventory">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-inventory-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="559.0" onAction="#btnPaymentOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Payment">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-payment-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnLogout" layoutX="13.0" layoutY="625.0" onAction="#btnLogoutOnAction" prefHeight="36.0" prefWidth="0.0" stylesheets="@../style/button_style.css" text=" ">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-log-out-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnDashboard" layoutX="13.0" layoutY="130.0" onAction="#btnDashboardOnAction" prefHeight="36.0" prefWidth="140.0" stylesheets="@../style/button_style.css" text="View Dashboard">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-dashboard-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHome" alignment="CENTER" layoutX="27.0" layoutY="259.0" onAction="#btnGuardianOnAction" prefHeight="36.0" prefWidth="200.0" stylesheets="@../style/button_style.css" text="Guardians">
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../asserts/icon/icons8-adoption-25.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane fx:id="pagePane" layoutX="254.0" prefHeight="675.0" prefWidth="945.0" />
+   </children>
+</AnchorPane>

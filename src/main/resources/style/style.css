@@ -1,0 +1,80 @@
+#btnIconButton {
+    -fx-background-color: #fbc531;
+    -fx-border-color: #2d3436;
+}
+
+#btnIconButton:hover {
+    -fx-background-color: #f0a500;
+    -fx-border-color: white;
+}
+
+#btnRefreshButton {
+    -fx-background-color: #2ed573;
+    -fx-border-color: #2d3436;
+}
+
+#btnRefreshButton:hover {
+    -fx-background-color: #28b463;
+    -fx-border-color: white;
+}
+
+#btnBackButton {
+    -fx-background-color: #636e72;
+    -fx-border-color: #636e72;
+}
+
+#btnBackButton:hover {
+    -fx-background-color: #b2bec3;
+    -fx-border-color: white;
+}
+
+#btnSave {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db;
+}
+
+#btnSave:hover {
+    -fx-background-color: #2980b9;
+    -fx-border-color: white;
+}
+
+#btnUpdate {
+    -fx-background-color: #e67e22;
+    -fx-border-color: #e67e22;
+}
+
+#btnUpdate:hover {
+    -fx-background-color: #d35400;
+    -fx-border-color: white;
+}
+
+#btnDelete {
+    -fx-background-color: #e74c3c;
+    -fx-border-color: #e74c3c;
+}
+
+#btnDelete:hover {
+    -fx-background-color: #c0392b;
+    -fx-border-color: white;
+}
+
+#btnClear {
+    -fx-background-color: #dfe6e9;
+    -fx-border-color: #2d3436;
+}
+
+#btnClear:hover {
+    -fx-background-color: #bdc3c7;
+    -fx-border-color: white;
+}
+
+#btnSearch {
+    -fx-background-color: #27ae60;
+    -fx-border-color: #27ae60;
+}
+
+#btnSearch:hover {
+    -fx-background-color: #219a52;
+    -fx-border-color: white;
+}
+

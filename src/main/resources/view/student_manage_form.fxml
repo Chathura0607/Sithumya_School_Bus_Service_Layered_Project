@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="475.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.StudentManageFormController">
+   <children>
+      <JFXButton fx:id="btnSave" layoutX="301.0" layoutY="430.0" onAction="#btnSaveOnAction" prefHeight="30.0" prefWidth="85.0" stylesheets="@../style/button_style.css" text="Save" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0">
+               <image>
+                  <Image url="@../asserts/icon/icons8-save-24.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelete" layoutX="109.0" layoutY="430.0" onAction="#btnDeleteOnAction" prefHeight="30.0" prefWidth="85.0" stylesheets="@../style/button_style.css" text="Delete" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="18.0">
+               <image>
+                  <Image url="@../asserts/icon/icons8-clear-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdate" layoutX="205.0" layoutY="430.0" onAction="#btnUpdateOnAction" prefHeight="30.0" prefWidth="85.0" stylesheets="@../style/button_style.css" text="Update" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="11.0">
+               <image>
+                  <Image url="@../asserts/icon/icons8-update-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnClear" layoutX="14.0" layoutY="430.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="85.0" stylesheets="@../style/button_style.css" text="Clear" textFill="#0b0000">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0">
+               <image>
+                  <Image url="@../asserts/icon/icons8-delete-30.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label layoutX="11.0" layoutY="60.0" text="Student Id" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="18.0" text="Manage" textFill="#2c3e50">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="90.0" text="Student" textFill="#ff760f">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDistance" layoutX="131.0" layoutY="280.0" onKeyReleased="#txtDistanceOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <Label layoutX="11.0" layoutY="136.0" text="Name" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="186.0" text="Date Of Birth" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="336.0" text="Bus Id" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtName" layoutX="131.0" layoutY="130.0" onKeyReleased="#txtNameOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <Label layoutX="11.0" layoutY="236.0" text="School Name" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSearch" layoutX="195.0" layoutY="81.0" onAction="#btnSearchOnAction" prefHeight="30.0" prefWidth="85.0" stylesheets="@../style/button_style.css" text="Search">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0">
+               <image>
+                  <Image url="@../asserts/icon/icons8-search-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <DatePicker fx:id="dtpDate" layoutX="131.0" layoutY="180.0" onKeyReleased="#dtpDateOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <ComboBox fx:id="cmbBusId" layoutX="131.0" layoutY="330.0" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <TextField fx:id="txtSchool" layoutX="131.0" layoutY="230.0" onKeyReleased="#txtSchoolOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <Label layoutX="11.0" layoutY="286.0" text="Distance To School" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Line endX="35.20001220703125" endY="3.814697265625E-6" fill="#cc6f2d" layoutX="140.0" layoutY="49.0" startX="-100.0" stroke="#ff6b00" />
+      <ComboBox fx:id="cmbPlanId" layoutX="131.0" layoutY="380.0" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <Label layoutX="11.0" layoutY="386.0" text="Payment Plan Id" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbStudentId" layoutX="27.0" layoutY="81.0" prefHeight="30.0" prefWidth="158.0" promptText="Search Student " styleClass="textField" stylesheets="@../style/text_field_style.css" />
+      <Line endX="269.0" endY="1.52587890625E-5" fill="BLACK" layoutX="115.0" layoutY="119.0" startX="-100.0" />
+   </children>
+</AnchorPane>

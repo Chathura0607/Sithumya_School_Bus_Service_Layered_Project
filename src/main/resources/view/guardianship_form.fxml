@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.GuardianshipFormController">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <TableView fx:id="tblGuardian" layoutX="15.0" layoutY="251.0" prefHeight="375.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colStudentId" prefWidth="100.0" text="Student Id" />
+                  <TableColumn fx:id="colStudentName" minWidth="0.0" prefWidth="160.0" text="Student Name" />
+                  <TableColumn fx:id="colGuardianId" prefWidth="160.0" text="Guardian Id" />
+                  <TableColumn fx:id="colGuardianName" prefWidth="160.0" text="Guardian Name" />
+                  <TableColumn fx:id="colContact" prefWidth="160.0" text="Emergency Contact" />
+                  <TableColumn fx:id="colRelation" prefWidth="130.0" text="Relationship Status" />
+               </columns>
+            </TableView>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Guardians Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="180.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Students" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <StackPane prefHeight="150.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

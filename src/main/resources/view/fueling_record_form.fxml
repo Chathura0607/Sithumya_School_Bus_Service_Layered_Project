@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.FuelingRecordFormController">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Fueling Information Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="293.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Sithumya" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblFueling" layoutX="15.0" layoutY="296.0" prefHeight="330.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colRecordId" prefWidth="145.0" text="Record Id" />
+                  <TableColumn fx:id="colBusId" minWidth="0.0" prefWidth="145.0" text="Bus Id" />
+                  <TableColumn fx:id="colStationId" prefWidth="145.0" text="Station Id" />
+                  <TableColumn fx:id="colTotalCost" prefWidth="145.0" text="Total Cost" />
+                  <TableColumn fx:id="colPayment" prefWidth="145.0" text="Payment Amount" />
+                  <TableColumn fx:id="colDebt" prefWidth="145.0" text="Debt Amount" />
+               </columns>
+            </TableView>
+            <ComboBox fx:id="cmbStationId" layoutX="481.0" layoutY="114.0" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+            <ComboBox fx:id="cmbBusId" layoutX="175.0" layoutY="114.0" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+            <TextField fx:id="txtPayment" layoutX="325.0" layoutY="181.0" onKeyReleased="#txtPaymentOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+            <TextField fx:id="txtCost" layoutX="31.0" layoutY="181.0" onKeyReleased="#txtCostOnKeyReleased" prefHeight="32.0" prefWidth="250.0" styleClass="textField" stylesheets="@../style/text_field_style.css" />
+            <Label layoutX="310.0" layoutY="156.0" text="Payment Amount" textFill="#363232">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="156.0" layoutY="91.0" text="Bus Id" textFill="#363232">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="468.0" layoutY="91.0" text="Station Id" textFill="#363232">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="156.0" text="Total Cost" textFill="#363232">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnSave" layoutX="740.0" layoutY="182.0" onAction="#btnRecordOnAction" prefHeight="30.0" prefWidth="145.0" stylesheets="@../style/button_style.css" text="Record Fueling" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-save-24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

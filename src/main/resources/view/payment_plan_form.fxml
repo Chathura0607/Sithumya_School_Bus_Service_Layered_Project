@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.PaymentPlanFormController">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Payment Plans Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="232.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Sithumya" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="711.0" layoutY="14.0" onAction="#btnManageOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Manage Plans">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <TableView fx:id="tblPlans" layoutX="15.0" layoutY="296.0" prefHeight="330.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colPlanId" prefWidth="290.0" text="Plan Id" />
+                  <TableColumn fx:id="colName" minWidth="0.0" prefWidth="290.0" text="Plan Name" />
+                  <TableColumn fx:id="colNumberOfInstallments" prefWidth="290.0" text="Number Of Installments" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

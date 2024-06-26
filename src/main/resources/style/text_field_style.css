@@ -1,0 +1,59 @@
+#txtUserID{
+    -fx-border-color: #f33e2e;
+    -fx-border-width:  0 0 2 5;
+    -fx-background-color: white;
+}
+
+#txtUserID:focused {
+    -fx-border-color: #feb949;
+    -fx-border-width: 0 0 3 6;
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+}
+
+#txtUsername{
+    -fx-border-color: #f33e2e;
+    -fx-border-width:  0 0 2 5;
+    -fx-background-color: white;
+}
+
+#txtUsername:focused {
+    -fx-border-color: #feb949;
+    -fx-border-width: 0 0 3 6;
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+}
+
+#pwfPassword{
+    -fx-border-color: #f33e2e;
+    -fx-border-width:  0 0 2 5;
+    -fx-background-color: white;
+}
+
+#pwfPassword:focused {
+    -fx-border-color: #feb949;
+    -fx-border-width: 0 0 3 6;
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+}
+
+#txtVerificationCode{
+    -fx-border-color: #f33e2e;
+    -fx-border-width:  0 0 2 5;
+    -fx-background-color: white;
+}
+
+#txtVerificationCode:focused {
+    -fx-border-color: #feb949;
+    -fx-border-width: 0 0 3 6;
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+}
+
+.textField{
+    -fx-font-size: 12;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: black;
+    -fx-text-fill: #000000;
+}
