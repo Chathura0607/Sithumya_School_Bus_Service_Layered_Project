@@ -21,7 +21,7 @@ public class LoginFormController {
     @FXML
     private TextField txtUsername;
 
-    private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.USER);
+    private UserBO userBO = (UserBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.USER);
 
     @FXML
     void linkResetOnAction(ActionEvent event) {

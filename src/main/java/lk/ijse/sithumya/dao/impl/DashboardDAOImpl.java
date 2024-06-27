@@ -54,4 +54,39 @@ public class DashboardDAOImpl implements DashboardDAO {
         }
         return TodayPaymentsList;
     }
+
+    @Override
+    public ArrayList getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean save(Object entity) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Object entity) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public String generateNewId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public List<String> getAllIds() throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public Object search(String id) throws SQLException {
+        return null;
+    }
 }

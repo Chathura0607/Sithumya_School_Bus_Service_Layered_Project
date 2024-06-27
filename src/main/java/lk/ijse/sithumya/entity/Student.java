@@ -9,10 +9,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Bus {
-    private String busId;
+public class Student {
+    private String studentId;
     private String name;
-    private String driverId;
-    private Date driverAssignedDate;
-    private double amountPayToBeStation;
+    private Date dateOfBirth;
+    private String school;
+    private double distance;
+    private String busId;
+    private String planId;
 }

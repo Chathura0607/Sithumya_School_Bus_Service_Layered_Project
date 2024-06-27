@@ -1,15 +1,12 @@
 package lk.ijse.sithumya.bo;
 
-import lk.ijse.sithumya.bo.impl.BusBOImpl;
-import lk.ijse.sithumya.bo.impl.DashboardBOImpl;
-import lk.ijse.sithumya.bo.impl.GuardianBOImpl;
-import lk.ijse.sithumya.bo.impl.UserBOImpl;
+import lk.ijse.sithumya.bo.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
 
     public enum BOTypes {
-        USER, DASHBOARD, BUS, GUARDIAN
+        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT
     }
 
     private BOFactory() {
@@ -32,6 +29,12 @@ public class BOFactory {
 
             case GUARDIAN:
                 return new GuardianBOImpl();
+
+            case DRIVER:
+                return new DriverBOImpl();
+
+            case STUDENT:
+                return new StudentBOImpl();
 
             default:
                 return null;

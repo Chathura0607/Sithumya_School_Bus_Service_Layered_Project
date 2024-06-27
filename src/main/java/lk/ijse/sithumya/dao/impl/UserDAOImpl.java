@@ -6,6 +6,8 @@ import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -22,5 +24,40 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void resetPassword(User entity) throws SQLException {
         SqlUtil.sql("UPDATE User SET Password = ? WHERE Name = ? AND User_ID = ?", entity.getPassword(), entity.getUserName(), entity.getUserId());
+    }
+
+    @Override
+    public ArrayList getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean save(User entity) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(User entity) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public String generateNewId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public List<String> getAllIds() throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public User search(String id) throws SQLException {
+        return null;
     }
 }

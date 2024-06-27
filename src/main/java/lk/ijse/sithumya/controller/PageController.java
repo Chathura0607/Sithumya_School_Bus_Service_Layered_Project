@@ -130,7 +130,7 @@ public class PageController {
         alert.showAndWait();
     }
 
-    public static void Animation(AnchorPane anchorPane){
+    public static void Animation(AnchorPane anchorPane) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(350), anchorPane);
         transition.setFromX(-anchorPane.getPrefWidth());
         transition.setToX(0);

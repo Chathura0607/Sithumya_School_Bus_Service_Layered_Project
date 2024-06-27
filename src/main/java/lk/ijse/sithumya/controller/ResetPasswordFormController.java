@@ -29,7 +29,7 @@ public class ResetPasswordFormController {
 
     private String verificationCode;
 
-    private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.USER);
+    private UserBO userBO = (UserBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.USER);
 
     @FXML
     void btnGetCodeOnAction(ActionEvent event) {

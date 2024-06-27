@@ -1,15 +1,15 @@
-package lk.ijse.sithumya.entity;
+package lk.ijse.sithumya.view.tm;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Bus {
+public class BusTm {
     private String busId;
     private String name;
     private String driverId;

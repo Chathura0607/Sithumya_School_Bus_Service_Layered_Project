@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.DashboardBO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
-import lk.ijse.sithumya.dto.tm.TodayPaymentsTm;
+import lk.ijse.sithumya.view.tm.TodayPaymentsTm;
 import lk.ijse.sithumya.util.Navigation;
 import lk.ijse.sithumya.util.SqlUtil;
 

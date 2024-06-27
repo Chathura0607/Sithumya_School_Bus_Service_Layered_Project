@@ -1,15 +1,12 @@
 package lk.ijse.sithumya.dao;
 
-import lk.ijse.sithumya.dao.impl.BusDAOImpl;
-import lk.ijse.sithumya.dao.impl.DashboardDAOImpl;
-import lk.ijse.sithumya.dao.impl.GuardianDAOImpl;
-import lk.ijse.sithumya.dao.impl.UserDAOImpl;
+import lk.ijse.sithumya.dao.impl.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
 
     public enum DAOTypes {
-        USER, DASHBOARD, BUS, GUARDIAN
+        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT
     }
 
     private DAOFactory() {
@@ -32,6 +29,12 @@ public class DAOFactory {
 
             case GUARDIAN:
                 return new GuardianDAOImpl();
+
+            case DRIVER:
+                return new DriverDAOImpl();
+
+            case STUDENT:
+                return new StudentDAOImpl();
 
             default:
                 return null;

@@ -13,6 +13,13 @@ public class BusDTO {
     private String busId;
     private String name;
     private String driverId;
-    private Date assignedDate;
-    private double debt;
+    private Date driverAssignedDate;
+    private double amountPayToBeStation;
+
+    public BusDTO(String busId, String name, String driverId, Date date) {
+        this.busId = busId;
+        this.name = name;
+        this.driverId = driverId;
+        this.driverAssignedDate = date;
+    }
 }

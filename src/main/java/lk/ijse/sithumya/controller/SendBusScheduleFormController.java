@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.BusBO;
+import lk.ijse.sithumya.dto.ScheduleDTO;
 import lk.ijse.sithumya.sendMail.EmailService;
 import lk.ijse.sithumya.util.TransactionUtil;
 
@@ -30,6 +31,7 @@ public class SendBusScheduleFormController {
     @FXML
     private TextField txtReturnTime;
 
+    //private ScheduleBO scheduleBO = (ScheduleBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.SCHEDULE);
     private BusBO busBO = (BusBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.BUS);
 
     @FXML
@@ -41,7 +43,8 @@ public class SendBusScheduleFormController {
         try {
             TransactionUtil.startTransaction();
 
-            boolean isSaved = busBO.saveBusArrivalTime(busId, date.toString(), arrivalTime.toString());
+            //boolean isSaved = scheduleBO.saveBusArrivalTime(busId, date.toString(), arrivalTime.toString());
+            boolean isSaved = busBO.saveBusArrivalTime(new ScheduleDTO(busId, date, arrivalTime));
 
             if (isSaved) {
                 EmailService.sendBusArrivalEmail(busId, arrivalTime.toString());
@@ -68,7 +71,7 @@ public class SendBusScheduleFormController {
         try {
             TransactionUtil.startTransaction();
 
-            boolean isSaved = busBO.saveBusReturnTime(busId, date.toString(), returnTime.toString());
+            boolean isSaved = busBO.saveBusReturnTime(new ScheduleDTO (busId, date, returnTime));
 
             if (isSaved) {
                 EmailService.sendBusReturnEmail(busId, returnTime.toString());
@@ -100,7 +103,7 @@ public class SendBusScheduleFormController {
         try {
             List<String> busIds = busBO.getAllBusIds();
             cmbBusId.getItems().addAll(busIds);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

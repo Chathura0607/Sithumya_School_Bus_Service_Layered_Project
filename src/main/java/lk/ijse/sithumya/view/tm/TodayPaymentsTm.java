@@ -1,4 +1,4 @@
-package lk.ijse.sithumya.dto.tm;
+package lk.ijse.sithumya.view.tm;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

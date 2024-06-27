@@ -1,12 +1,9 @@
 package lk.ijse.sithumya.bo.impl;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import lk.ijse.sithumya.bo.custom.DashboardBO;
 import lk.ijse.sithumya.dao.DAOFactory;
 import lk.ijse.sithumya.dao.custom.DashboardDAO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
-import lk.ijse.sithumya.dto.tm.TodayPaymentsTm;
 
 import java.sql.SQLException;
 import java.util.List;
