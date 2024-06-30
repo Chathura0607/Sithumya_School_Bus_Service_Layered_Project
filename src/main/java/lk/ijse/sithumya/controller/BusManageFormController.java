@@ -142,17 +142,22 @@ public class BusManageFormController {
 
     public void initialize() {
         try {
-            /*List<String> busIds = busBO.getAllBusIds();
-            cmbBusId.getItems().addAll(busIds);*/
             refreshBusIds();
-
-            List<String> driverIds = driverBO.getAllDriverIds();
-            cmbDriverId.getItems().addAll(driverIds);
-
+            refreshDriverIds();
             nextBusId = generateNextBusId();
 
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    private void refreshDriverIds() {
+        try {
+            List<String> driverIds = driverBO.getAllDriverIds();
+            cmbDriverId.getItems().clear();
+            cmbDriverId.getItems().addAll(driverIds);
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -162,7 +167,7 @@ public class BusManageFormController {
             cmbBusId.getItems().clear();
             cmbBusId.getItems().addAll(busIds);
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

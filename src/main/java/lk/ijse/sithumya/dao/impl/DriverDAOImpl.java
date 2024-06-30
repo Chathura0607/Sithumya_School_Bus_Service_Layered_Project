@@ -2,6 +2,7 @@ package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.DriverDAO;
 import lk.ijse.sithumya.entity.Driver;
+import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;
@@ -13,7 +14,22 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public ArrayList<Driver> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Driver> allDrivers = new ArrayList<>();
+        ResultSet resultSet = SqlUtil.sql("SELECT * FROM Driver");
+        while (resultSet.next()) {
+            Driver driver = new Driver(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getDouble(6),
+                    resultSet.getDouble(7),
+                    resultSet.getDouble(8)
+            );
+            allDrivers.add(driver);
+        }
+        return allDrivers;
     }
 
     @Override

@@ -6,7 +6,7 @@ public class BOFactory {
     private static BOFactory boFactory;
 
     public enum BOTypes {
-        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT
+        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT, STATION, STOCK, PLAN, PAYMENT, MAINTENANCE, GUARDIANSHIP, FEE, SALARY, RECORD
     }
 
     private BOFactory() {
@@ -35,6 +35,33 @@ public class BOFactory {
 
             case STUDENT:
                 return new StudentBOImpl();
+
+            case STATION:
+                return new FillingStationBOImpl();
+
+            case STOCK:
+                return new StockBOImpl();
+
+            case PLAN:
+                return new PaymentPlanBOImpl();
+
+            case PAYMENT:
+                return new PaymentBOImpl();
+
+            case MAINTENANCE:
+                return new MaintenanceBOImpl();
+
+            case GUARDIANSHIP:
+                return new GuardianshipBOImpl();
+
+            case FEE:
+                return new FeeBOImpl();
+
+            case SALARY:
+                return new SalaryBOImpl();
+
+            case RECORD:
+                return new FuelingRecordBOImpl();
 
             default:
                 return null;

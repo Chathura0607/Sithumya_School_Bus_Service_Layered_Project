@@ -1,6 +1,8 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.GuardianDAO;
+import lk.ijse.sithumya.entity.Bus;
+import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;
@@ -21,17 +23,30 @@ public class GuardianDAOImpl implements GuardianDAO {
 
     @Override
     public ArrayList getAll() throws SQLException {
+        ArrayList<Guardian> allGuardians = new ArrayList<>();
+        ResultSet resultSet = SqlUtil.sql("SELECT * FROM Guardian");
+        while (resultSet.next()) {
+            Guardian guardian = new Guardian(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+            );
+            allGuardians.add(guardian);
+        }
+        return allGuardians;
+    }
+
+    @Override
+    public boolean save(Guardian entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public Guardian search(String id) throws SQLException, ClassNotFoundException {
         return null;
-    }
-
-    @Override
-    public boolean save(Object entity) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean update(Object entity) throws SQLException {
-        return false;
     }
 
     @Override
@@ -50,7 +65,7 @@ public class GuardianDAOImpl implements GuardianDAO {
     }
 
     @Override
-    public Object search(String id) throws SQLException {
-        return null;
+    public boolean update(Guardian entity) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

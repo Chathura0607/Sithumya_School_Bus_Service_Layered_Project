@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 
-public interface BusDAO extends CurdDAO <Bus> {
+public interface BusDAO extends CurdDAO<Bus> {
     boolean saveBusArrivalTime(String busId, Date date, Time scheduleTime) throws SQLException;
 
     boolean saveBusReturnTime(String busId, Date date, Time scheduleTime) throws SQLException;

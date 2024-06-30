@@ -5,6 +5,6 @@ import lk.ijse.sithumya.entity.Student;
 
 import java.sql.SQLException;
 
-public interface StudentDAO extends CurdDAO <Student> {
+public interface StudentDAO extends CurdDAO<Student> {
     int getTotalStudentsCount() throws SQLException;
 }

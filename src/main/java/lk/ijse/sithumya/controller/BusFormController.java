@@ -1,7 +1,5 @@
 package lk.ijse.sithumya.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.BusBO;
-import lk.ijse.sithumya.bo.impl.BusBOImpl;
 import lk.ijse.sithumya.dto.BusDTO;
 import lk.ijse.sithumya.util.Navigation;
 import lk.ijse.sithumya.view.tm.BusTm;
@@ -21,7 +18,6 @@ import lombok.Getter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BusFormController {
 

@@ -63,6 +63,10 @@ public class Regex {
             case STUDENTId:
                 field = "^S\\d{3,4}$";
                 break;
+
+            case ITEMId:
+                field = "^[a-zA-Z0-9]+$";
+                break;
         }
 
         Pattern pattern = Pattern.compile(field);
