@@ -14,7 +14,7 @@ public class DbConnection {
                 "root",
                 "Chathu0607"
         );
-        System.out.println(connection.toString());
+        //System.out.println(connection.toString());
     }
 
     public static DbConnection getInstance() throws SQLException {
