@@ -1,7 +1,5 @@
 package lk.ijse.sithumya.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -25,7 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.ArrayList;
 
 public class MainDashboardFormController {
 
@@ -117,38 +115,20 @@ public class MainDashboardFormController {
     }
 
     private void loadTodayPayments() {
-        /*ObservableList<TodayPaymentsTm> obList = FXCollections.observableArrayList();
+        tblTodayPayments.getItems().clear();
 
         try {
-            ObservableList<TodayPaymentsTm> dtoList = dashboardBO.loadTodayPayments();
+            ArrayList<TodayPaymentsDTO> loadTodayPayments = dashboardBO.loadTodayPayments();
 
-            for (TodayPaymentsTm todayPayment : dtoList) {
-                obList.add(new TodayPaymentsTm(
-                        todayPayment.getPaymentId(),
-                        todayPayment.getStudentName(),
-                        todayPayment.getPaymentPlanName(),
-                        todayPayment.getPaymentAmount()
-                ));
-            }
-            tblTodayPayments.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
-        ObservableList<TodayPaymentsTm> obList = FXCollections.observableArrayList();
-
-        try {
-            List<TodayPaymentsDTO> dtoList = dashboardBO.loadTodayPayments();
-
-            for (TodayPaymentsDTO todayPayments : dtoList) {
-                obList.add(new TodayPaymentsTm(
+            for (TodayPaymentsDTO todayPayments : loadTodayPayments) {
+                tblTodayPayments.getItems().add(new TodayPaymentsTm(
                         todayPayments.getPaymentId(),
                         todayPayments.getStudentName(),
                         todayPayments.getPaymentPlanName(),
                         todayPayments.getPaymentAmount()
                 ));
             }
-            tblTodayPayments.setItems(obList);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

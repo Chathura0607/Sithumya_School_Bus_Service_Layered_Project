@@ -1,9 +1,10 @@
 package lk.ijse.sithumya.dao.custom;
 
 import lk.ijse.sithumya.dao.CurdDAO;
+import lk.ijse.sithumya.dto.TodayPaymentsDTO;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public interface DashboardDAO extends CurdDAO {
     int getTotalStudentsCount() throws SQLException, ClassNotFoundException;
@@ -13,6 +14,4 @@ public interface DashboardDAO extends CurdDAO {
     int getTotalDriversCount() throws SQLException, ClassNotFoundException;
 
     String getUserName() throws SQLException, ClassNotFoundException;
-
-    List loadTodayPayments() throws SQLException;
 }

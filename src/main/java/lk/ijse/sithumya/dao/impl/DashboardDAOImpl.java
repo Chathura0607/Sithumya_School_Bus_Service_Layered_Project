@@ -35,27 +35,6 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     @Override
-    public List<TodayPaymentsDTO> loadTodayPayments() throws SQLException {
-        ResultSet resultSet = SqlUtil.sql("SELECT p.Payment_ID, s.Name AS Student_Name, pp.Name AS Payment_Plan_Name, p.Amount AS Payment_Amount \n" +
-                "FROM Payment p \n" +
-                "JOIN Fee f ON p.Payment_Plan_ID = f.Payment_Plan_ID \n" +
-                "JOIN Student s ON f.Student_ID = s.Student_ID \n" +
-                "JOIN Payment_Plan pp ON f.Payment_Plan_ID = pp.Payment_Plan_ID \n" +
-                "WHERE DATE(p.Payment_Date) = CURDATE()\n");
-        List<TodayPaymentsDTO> TodayPaymentsList = new ArrayList<>();
-
-        while (resultSet.next()) {
-            TodayPaymentsList.add(new TodayPaymentsDTO(
-                    resultSet.getInt(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getDouble(4)
-            ));
-        }
-        return TodayPaymentsList;
-    }
-
-    @Override
     public ArrayList getAll() throws SQLException {
         return null;
     }

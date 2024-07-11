@@ -14,4 +14,12 @@ public class FuelingRecordDTO {
     private double cost;
     private double payment;
     private double debt;
+
+    public FuelingRecordDTO(String busId, String stationId, double totalCost, double paymentAmount, double debtAmount) {
+        this.busId = busId;
+        this.stationId = stationId;
+        this.cost = totalCost;
+        this.payment = paymentAmount;
+        this.debt = debtAmount;
+    }
 }

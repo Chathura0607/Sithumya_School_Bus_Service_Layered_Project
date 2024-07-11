@@ -5,7 +5,6 @@ import lk.ijse.sithumya.dto.StockDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface StockBO extends SuperBO {
     ArrayList<StockDTO> getAllStocks() throws SQLException, ClassNotFoundException;

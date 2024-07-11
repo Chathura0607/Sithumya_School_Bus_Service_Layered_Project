@@ -8,4 +8,6 @@ import java.util.ArrayList;
 
 public interface FeeBO extends SuperBO {
     ArrayList<FeeDTO> getAllFees() throws SQLException, ClassNotFoundException;
+
+    boolean setPlan(FeeDTO feeDTO) throws SQLException, ClassNotFoundException;
 }

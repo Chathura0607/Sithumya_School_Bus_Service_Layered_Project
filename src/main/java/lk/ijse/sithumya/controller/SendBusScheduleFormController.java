@@ -10,8 +10,7 @@ import javafx.scene.input.KeyEvent;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.BusBO;
 import lk.ijse.sithumya.dto.ScheduleDTO;
-import lk.ijse.sithumya.sendMail.EmailService;
-import lk.ijse.sithumya.util.TransactionUtil;
+import lk.ijse.sithumya.util.Regex;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,7 +30,6 @@ public class SendBusScheduleFormController {
     @FXML
     private TextField txtReturnTime;
 
-    //private ScheduleBO scheduleBO = (ScheduleBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.SCHEDULE);
     private BusBO busBO = (BusBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.BUS);
 
     @FXML
@@ -40,25 +38,15 @@ public class SendBusScheduleFormController {
         LocalDate date = dtpDate.getValue();
         LocalTime arrivalTime = LocalTime.parse(txtArrivalTime.getText());
 
-        try {
-            TransactionUtil.startTransaction();
-
-            //boolean isSaved = scheduleBO.saveBusArrivalTime(busId, date.toString(), arrivalTime.toString());
-            boolean isSaved = busBO.saveBusArrivalTime(new ScheduleDTO(busId, date, arrivalTime));
-
-            if (isSaved) {
-                EmailService.sendBusArrivalEmail(busId, arrivalTime.toString());
-                TransactionUtil.endTransaction();
+        if (isTextValid()) {
+            try {
+                busBO.saveBusArrivalTime(new ScheduleDTO(busId, date, arrivalTime));
                 new Alert(Alert.AlertType.CONFIRMATION, "Bus arrival time saved and emails sent successfully!").show();
-            } else {
-                TransactionUtil.rollBack();
-                new Alert(Alert.AlertType.ERROR, "Failed to save bus arrival time!").show();
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            TransactionUtil.rollBack();
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } finally {
-            TransactionUtil.endTransaction();
+        }  else {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
         }
     }
 
@@ -68,35 +56,26 @@ public class SendBusScheduleFormController {
         LocalDate date = dtpDate.getValue();
         LocalTime returnTime = LocalTime.parse(txtReturnTime.getText());
 
-        try {
-            TransactionUtil.startTransaction();
-
-            boolean isSaved = busBO.saveBusReturnTime(new ScheduleDTO (busId, date, returnTime));
-
-            if (isSaved) {
-                EmailService.sendBusReturnEmail(busId, returnTime.toString());
-                TransactionUtil.endTransaction();
+        if (isTextValid()) {
+            try {
+                busBO.saveBusReturnTime(new ScheduleDTO(busId, date, returnTime));
                 new Alert(Alert.AlertType.CONFIRMATION, "Bus return time saved and emails sent successfully!").show();
-            } else {
-                TransactionUtil.rollBack();
-                new Alert(Alert.AlertType.ERROR, "Failed to save bus return time!").show();
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            TransactionUtil.rollBack();
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } finally {
-            TransactionUtil.endTransaction();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
         }
     }
 
     @FXML
     void txtArrivalOnKeyReleased(KeyEvent event) {
-
+        Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtArrivalTime);
     }
 
     @FXML
     void txtReturnOnKeyReleased(KeyEvent event) {
-
+        Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtReturnTime);
     }
 
     public void initialize() {
@@ -106,5 +85,12 @@ public class SendBusScheduleFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isTextValid() {
+        boolean isArrivalTimeValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtArrivalTime);
+        boolean isReturnTimeValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtReturnTime);
+
+        return isArrivalTimeValid && isReturnTimeValid;
     }
 }

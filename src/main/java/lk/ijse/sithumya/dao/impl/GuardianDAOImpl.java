@@ -41,11 +41,22 @@ public class GuardianDAOImpl implements GuardianDAO {
 
     @Override
     public boolean save(Guardian entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("INSERT INTO Guardian (Guardian_ID, Name, Relation, Contact_Number, Email, Address) VALUES (?, ?, ?, ?, ?, ?)", entity.getGuardianId(), entity.getName(), entity.getRelation(), entity.getContact(), entity.getEmail(), entity.getAddress());
     }
 
     @Override
     public Guardian search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SqlUtil.sql("SELECT * FROM Guardian WHERE Guardian_ID = ?", id);
+        if (resultSet.next()) {
+            return new Guardian(
+                    resultSet.getString("Guardian_ID"),
+                    resultSet.getString("Name"),
+                    resultSet.getString("Relation"),
+                    resultSet.getString("Contact_Number"),
+                    resultSet.getString("Email"),
+                    resultSet.getString("Address")
+            );
+        }
         return null;
     }
 
@@ -61,11 +72,11 @@ public class GuardianDAOImpl implements GuardianDAO {
 
     @Override
     public boolean delete(String id) throws SQLException {
-        return false;
+        return SqlUtil.sql("DELETE FROM Guardian WHERE Guardian_ID = ?", id);
     }
 
     @Override
     public boolean update(Guardian entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("UPDATE Guardian SET Name = ?, Relation = ?, Contact_Number = ?, Email = ?, Address = ? WHERE Guardian_ID = ?", entity.getName(), entity.getRelation(), entity.getContact(), entity.getEmail(), entity.getAddress(), entity.getGuardianId());
     }
 }

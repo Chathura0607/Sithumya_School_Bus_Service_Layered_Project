@@ -8,4 +8,6 @@ import java.util.ArrayList;
 
 public interface FuelingRecordBO extends SuperBO {
     ArrayList<FuelingRecordDTO> getAllFuelingRecords() throws SQLException, ClassNotFoundException;
+
+    boolean isRecordSaved(FuelingRecordDTO fuelingRecordDTO) throws SQLException, ClassNotFoundException;
 }

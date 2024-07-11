@@ -4,7 +4,7 @@ import lk.ijse.sithumya.bo.SuperBO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public interface DashboardBO extends SuperBO {
     int getTotalStudentsCount() throws SQLException, ClassNotFoundException;
@@ -15,5 +15,5 @@ public interface DashboardBO extends SuperBO {
 
     String getUserName() throws SQLException, ClassNotFoundException;
 
-    List<TodayPaymentsDTO> loadTodayPayments() throws SQLException;
+    ArrayList<TodayPaymentsDTO> loadTodayPayments() throws SQLException;
 }

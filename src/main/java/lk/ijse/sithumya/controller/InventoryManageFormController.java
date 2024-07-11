@@ -10,7 +10,6 @@ import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.MaintenanceBO;
 import lk.ijse.sithumya.bo.custom.StockBO;
 import lk.ijse.sithumya.dto.StockDTO;
-import lk.ijse.sithumya.entity.Stock;
 import lk.ijse.sithumya.util.Regex;
 
 import java.sql.SQLException;

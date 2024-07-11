@@ -3,16 +3,11 @@ package lk.ijse.sithumya.bo.impl;
 import lk.ijse.sithumya.bo.custom.StockBO;
 import lk.ijse.sithumya.dao.DAOFactory;
 import lk.ijse.sithumya.dao.custom.StockDAO;
-import lk.ijse.sithumya.dto.BusDTO;
-import lk.ijse.sithumya.dto.GuardianDTO;
 import lk.ijse.sithumya.dto.StockDTO;
-import lk.ijse.sithumya.entity.Bus;
-import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.entity.Stock;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StockBOImpl implements StockBO {
     private StockDAO stockDAO = (StockDAO) DAOFactory.getDAOFactory().getDAOType(DAOFactory.DAOTypes.STOCK);

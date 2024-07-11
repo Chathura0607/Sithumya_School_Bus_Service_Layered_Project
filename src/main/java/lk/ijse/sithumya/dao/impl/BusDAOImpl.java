@@ -2,6 +2,7 @@ package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.BusDAO;
 import lk.ijse.sithumya.entity.Bus;
+import lk.ijse.sithumya.entity.Schedule;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.Date;
@@ -12,15 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BusDAOImpl implements BusDAO {
-    @Override
-    public boolean saveBusArrivalTime(String busId, Date date, Time scheduleTime) throws SQLException {
-        return SqlUtil.sql("INSERT INTO BusSchedule (Bus_ID, Date, Time_Type, Schedule_Time) VALUES (?, ?, 'Arrival', ?)", busId, date, scheduleTime);
-    }
-
-    @Override
-    public boolean saveBusReturnTime(String busId, Date date, Time scheduleTime) throws SQLException {
-        return SqlUtil.sql("INSERT INTO BusSchedule (Bus_ID, Date, Time_Type, Schedule_Time) VALUES (?, ?, 'Return', ?)", busId, date, scheduleTime);
-    }
 
     @Override
     public List<String> getAllIds() throws SQLException {
@@ -37,6 +29,7 @@ public class BusDAOImpl implements BusDAO {
     public ArrayList<Bus> getAll() throws SQLException {
         ArrayList<Bus> allBus = new ArrayList<>();
         ResultSet resultSet = SqlUtil.sql("SELECT * FROM Bus");
+
         while (resultSet.next()) {
             Bus bus = new Bus(
                     resultSet.getString(1),
@@ -91,5 +84,20 @@ public class BusDAOImpl implements BusDAO {
             );
         }
         return null;
+    }
+
+    @Override
+    public boolean saveBusReturnTime(Schedule schedule) throws SQLException {
+        return SqlUtil.sql("INSERT INTO BusSchedule (Bus_ID, Date, Time_Type, Schedule_Time) VALUES (?, ?, 'Return', ?)", schedule.getBusId(), schedule.getDate(), schedule.getScheduleTime());
+    }
+
+    @Override
+    public boolean updateDebtAmount(Bus bus) throws SQLException {
+        return SqlUtil.sql("UPDATE Bus SET Debt_Amount = COALESCE(Debt_Amount, 0) + ? WHERE Bus_ID = ?", bus.getAmountPayToBeStation(), bus.getBusId());
+    }
+
+    @Override
+    public boolean saveBusArrivalTime(Schedule schedule) throws SQLException {
+        return SqlUtil.sql("INSERT INTO BusSchedule (Bus_ID, Date, Time_Type, Schedule_Time) VALUES (?, ?, 'Arrival', ?)", schedule.getBusId(), schedule.getDate(), schedule.getScheduleTime());
     }
 }

@@ -1,7 +1,6 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.MaintenanceDAO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Maintenance;
 import lk.ijse.sithumya.util.SqlUtil;
 
@@ -30,22 +29,32 @@ public class MaintenanceDAOImpl implements MaintenanceDAO {
 
     @Override
     public boolean save(Maintenance entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("INSERT INTO Maintenance_Record (Maintenance_ID, Bus_ID, Description, Cost, Date) VALUES (?,?,?,?,?)", entity.getMaintenanceId(), entity.getBusId(), entity.getDescription(), entity.getCost(), entity.getDate());
     }
 
     @Override
     public Maintenance search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SqlUtil.sql("SELECT Maintenance_ID, Bus_ID, Description, Cost, Date FROM Maintenance_Record WHERE Maintenance_ID = ?", id);
+        if (resultSet.next()) {
+            return new Maintenance(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4),
+                    resultSet.getDate(5)
+            );
+        }
         return null;
     }
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("DELETE FROM Maintenance_Record WHERE Maintenance_ID = ?", id);
     }
 
     @Override
     public boolean update(Maintenance entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("UPDATE Maintenance_Record SET Bus_ID = ?, Description = ?, Cost = ?, Date = ? WHERE Maintenance_ID = ?", entity.getBusId(), entity.getDescription(), entity.getCost(), entity.getDate(), entity.getMaintenanceId());
     }
 
     @Override

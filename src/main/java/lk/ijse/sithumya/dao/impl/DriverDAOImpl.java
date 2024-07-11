@@ -1,6 +1,7 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.DriverDAO;
+import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Driver;
 import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.util.SqlUtil;
@@ -34,11 +35,24 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public boolean save(Driver entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("INSERT INTO Driver (Driver_ID, Name, Address, Email, Contact_Number) VALUES (?,?,?,?,?)", entity.getDriverId(), entity.getName(), entity.getAddress(), entity.getEmail(), entity.getContactNumber());
     }
 
     @Override
     public Driver search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SqlUtil.sql("SELECT * FROM Driver WHERE Driver_ID = ?", id);
+        if (resultSet.next()) {
+            return new Driver(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getDouble(6),
+                    resultSet.getDouble(7),
+                    resultSet.getDouble(8)
+            );
+        }
         return null;
     }
 
@@ -49,7 +63,7 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public boolean update(Driver entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("UPDATE Driver SET Name = ?, Address = ?, Email = ?, Contact_Number = ? WHERE Driver_ID = ?", entity.getName(), entity.getAddress(), entity.getEmail(), entity.getContactNumber(), entity.getDriverId());
     }
 
     @Override

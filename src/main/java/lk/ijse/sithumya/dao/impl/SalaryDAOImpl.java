@@ -3,6 +3,7 @@ package lk.ijse.sithumya.dao.impl;
 import lk.ijse.sithumya.dao.custom.SalaryDAO;
 import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Driver;
+import lk.ijse.sithumya.entity.Maintenance;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;
@@ -38,6 +39,20 @@ public class SalaryDAOImpl implements SalaryDAO {
 
     @Override
     public Driver search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SqlUtil.sql("SELECT * FROM Driver WHERE Driver_ID = ?", id);
+
+        if (resultSet.next()) {
+            return new Driver(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getDouble(6),
+                    resultSet.getDouble(7),
+                    resultSet.getDouble(8)
+            );
+        }
         return null;
     }
 
@@ -48,7 +63,7 @@ public class SalaryDAOImpl implements SalaryDAO {
 
     @Override
     public boolean update(Driver entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("UPDATE Driver SET Monthly_Salary = ?, Payment_Amount = ?, Payment_Due = ? WHERE Driver_ID = ?", entity.getSalary(), entity.getPayment(), entity.getPaymentDue(), entity.getDriverId());
     }
 
     @Override

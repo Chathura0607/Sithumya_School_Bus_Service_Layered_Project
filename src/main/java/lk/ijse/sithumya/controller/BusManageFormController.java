@@ -54,6 +54,7 @@ public class BusManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Bus Delete Successfully!").show();
                     clearFields();
                     refreshBusIds();
+                    refreshDriverIds();
                     BusFormController.getController().loadAllBuses();
                 }
             }else {
@@ -79,6 +80,7 @@ public class BusManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Bus Saved Successfully!").show();
                     clearFields();
                     refreshBusIds();
+                    refreshDriverIds();
                     BusFormController.getController().loadAllBuses();
                 }
             } catch (SQLException | ClassNotFoundException e) {
@@ -120,6 +122,7 @@ public class BusManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Bus Update Successfully!").show();
                     clearFields();
                     refreshBusIds();
+                    refreshDriverIds();
                     BusFormController.getController().loadAllBuses();
                 }
             } catch (SQLException | ClassNotFoundException e) {
@@ -141,14 +144,9 @@ public class BusManageFormController {
     }
 
     public void initialize() {
-        try {
-            refreshBusIds();
-            refreshDriverIds();
-            nextBusId = generateNextBusId();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        refreshBusIds();
+        refreshDriverIds();
+        generateNextBusId();
     }
 
     private void refreshDriverIds() {
@@ -190,8 +188,12 @@ public class BusManageFormController {
         }
     }
 
-    private String generateNextBusId() throws SQLException, ClassNotFoundException {
-        return nextBusId = busBO.generateNextBusId();
+    private void generateNextBusId() {
+        try {
+            nextBusId = busBO.generateNextBusId();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     public boolean isTextValid() {

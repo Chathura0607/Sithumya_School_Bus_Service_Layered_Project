@@ -17,4 +17,9 @@ public class FeeDTO {
     private double discount;
     private double totalAmount;
     private Date dueDate;
+
+    public FeeDTO(String studentId, String planId) {
+        this.studentId = studentId;
+        this.planId = planId;
+    }
 }

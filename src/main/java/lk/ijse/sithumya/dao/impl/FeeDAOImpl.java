@@ -4,8 +4,10 @@ import lk.ijse.sithumya.dao.custom.FeeDAO;
 import lk.ijse.sithumya.entity.Fee;
 import lk.ijse.sithumya.util.SqlUtil;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,16 @@ public class FeeDAOImpl implements FeeDAO {
 
     @Override
     public boolean save(Fee entity) throws SQLException, ClassNotFoundException {
-        return false;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dueDate = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), currentDate.lengthOfMonth());
+
+        return SqlUtil.sql("INSERT INTO Fee (Student_ID, Payment_Plan_ID, Monthly_Fee, Discount, Total_Amount, Due_Date) VALUES (?, ?, ?, ?, ?, ?)",
+                entity.getStudentId(),
+                entity.getPlanId(),
+                entity.getMonthlyFee(),
+                entity.getDiscount(),
+                entity.getTotalAmount(),
+                Date.valueOf(dueDate));
     }
 
     @Override
@@ -47,7 +58,7 @@ public class FeeDAOImpl implements FeeDAO {
 
     @Override
     public boolean update(Fee entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("UPDATE Fee SET Payment_Plan_ID = ? WHERE Student_ID = ?", entity.getPlanId(), entity.getStudentId());
     }
 
     @Override
@@ -58,5 +69,34 @@ public class FeeDAOImpl implements FeeDAO {
     @Override
     public List<String> getAllIds() throws SQLException, ClassNotFoundException {
         return List.of();
+    }
+
+    @Override
+    public double getRemainingFeeAmount(String studentId) throws SQLException {
+        String sql = "SELECT Total_Amount FROM Fee WHERE Student_ID = ? ORDER BY Fee_ID DESC LIMIT 1";
+        ResultSet resultSet = SqlUtil.sql(sql, studentId);
+        if (resultSet.next()) {
+            return resultSet.getDouble("Total_Amount");
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean updateFeeAmount(String studentId, double newFeeAmount) throws SQLException {
+        return SqlUtil.sql("UPDATE Fee SET Total_Amount = ? WHERE Student_ID = ? ORDER BY Fee_ID DESC LIMIT 1", newFeeAmount, studentId);
+    }
+
+    @Override
+    public boolean updateMonthlyFee(Fee entity) throws SQLException {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dueDate = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), currentDate.lengthOfMonth());
+
+        return SqlUtil.sql("UPDATE Fee SET Payment_Plan_ID = ?, Monthly_Fee = ?, Discount = ?, Total_Amount = ?, Due_Date = ? WHERE Student_ID = ?",
+                entity.getPlanId(),
+                entity.getMonthlyFee(),
+                entity.getDiscount(),
+                entity.getTotalAmount(),
+                Date.valueOf(dueDate),
+                entity.getStudentId());
     }
 }

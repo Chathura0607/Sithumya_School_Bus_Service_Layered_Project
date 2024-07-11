@@ -1,6 +1,5 @@
 package lk.ijse.sithumya.controller;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 public class GuardianshipFormController {
 
-    /*@FXML
+    @FXML
     private TableColumn<?, ?> colContact;
 
     @FXML
@@ -47,20 +46,19 @@ public class GuardianshipFormController {
         tblGuardian.getItems().clear();
 
         try {
-            ArrayList<GuardianshipDTO> guardianList = model.getAllGuardians();
+            ArrayList<GuardianshipDTO> AllGuardians = guardianshipBO.getAllGuardians();
 
-            for (GuardianshipTm guardian : guardianList) {
-                tmList.add(new GuardianshipTm(
-                        guardian.getStudentId(),
-                        guardian.getStudentName(),
-                        guardian.getGuardianId(),
-                        guardian.getGuardianName(),
-                        guardian.getEmergencyContact(),
-                        guardian.getRelation()
+            for (GuardianshipDTO guardianshipDTO : AllGuardians) {
+                tblGuardian.getItems().add(new GuardianshipTm(
+                        guardianshipDTO.getStudentId(),
+                        guardianshipDTO.getStudentName(),
+                        guardianshipDTO.getGuardianId(),
+                        guardianshipDTO.getGuardianName(),
+                        guardianshipDTO.getEmergencyContact(),
+                        guardianshipDTO.getRelation()
                 ));
             }
-            tblGuardian.setItems(tmList);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -72,5 +70,5 @@ public class GuardianshipFormController {
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("emergencyContact"));
         colRelation.setCellValueFactory(new PropertyValueFactory<>("relation"));
-    }*/
+    }
 }

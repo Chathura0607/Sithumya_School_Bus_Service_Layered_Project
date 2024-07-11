@@ -31,7 +31,8 @@ public class FuelingRecordDAOImpl implements FuelingRecordDAO {
 
     @Override
     public boolean save(FuelingRecord entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("INSERT INTO Fueling_Record (Bus_ID, Station_ID, Total_Cost, Payment_Amount, Debt_Amount) VALUES (?, ?, ?, ?, ?)",
+                entity.getBusId(), entity.getStationId(), entity.getCost(), entity.getPayment(), entity.getDebt());
     }
 
     @Override

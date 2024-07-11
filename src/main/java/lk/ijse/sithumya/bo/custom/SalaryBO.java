@@ -8,4 +8,8 @@ import java.util.ArrayList;
 
 public interface SalaryBO extends SuperBO {
     ArrayList<DriverDTO> getAllDriversWithSalary() throws SQLException, ClassNotFoundException;
+
+    boolean updateSalary(DriverDTO driverDTO) throws SQLException, ClassNotFoundException;
+
+    DriverDTO salarySearchByDriverId(String driverId) throws SQLException, ClassNotFoundException;
 }

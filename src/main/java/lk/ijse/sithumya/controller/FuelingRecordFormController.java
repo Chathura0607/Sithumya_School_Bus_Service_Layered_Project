@@ -58,7 +58,7 @@ public class FuelingRecordFormController {
 
     @FXML
     void btnRecordOnAction(ActionEvent event) {
-        /*try {
+        try {
             String busId = cmbBusId.getValue();
             String stationId = cmbStationId.getValue();
             double totalCost = Double.parseDouble(txtCost.getText());
@@ -66,10 +66,8 @@ public class FuelingRecordFormController {
             double debtAmount = totalCost - paymentAmount;
 
             if (isTextValid()) {
-                var fuelingRecord = new FuelingRecord(busId, stationId, totalCost, paymentAmount, debtAmount);
-                var bus = new Bus(busId, debtAmount);
+                boolean isSaved = fuelingRecordBO.isRecordSaved(new FuelingRecordDTO(busId, stationId, totalCost, paymentAmount, debtAmount));
 
-                boolean isSaved = FuelingRecordRepository.isRecordSaved(fuelingRecord, bus);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Record Update Successfully!").show();
                     initialize();
@@ -80,10 +78,9 @@ public class FuelingRecordFormController {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
             }
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid number format!").show();
-            e.printStackTrace();
-        }*/
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     @FXML

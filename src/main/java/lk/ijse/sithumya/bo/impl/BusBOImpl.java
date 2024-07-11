@@ -6,6 +6,9 @@ import lk.ijse.sithumya.dao.custom.BusDAO;
 import lk.ijse.sithumya.dto.BusDTO;
 import lk.ijse.sithumya.dto.ScheduleDTO;
 import lk.ijse.sithumya.entity.Bus;
+import lk.ijse.sithumya.entity.Schedule;
+import lk.ijse.sithumya.sendMail.EmailService;
+import lk.ijse.sithumya.util.TransactionUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,12 +51,60 @@ public class BusBOImpl implements BusBO {
 
     @Override
     public boolean saveBusArrivalTime(ScheduleDTO scheduleDTO) throws SQLException {
-        return busDAO.saveBusArrivalTime(scheduleDTO.getBusId(), scheduleDTO.getDate(), scheduleDTO.getScheduleTime());
+        try {
+            TransactionUtil.startTransaction();
+
+            Schedule schedule = new Schedule();
+            schedule.setBusId(scheduleDTO.getBusId());
+            schedule.setDate(scheduleDTO.getDate());
+            schedule.setTimeType("ARRIVAL");
+            schedule.setScheduleTime(scheduleDTO.getScheduleTime());
+
+            boolean isSaved = busDAO.saveBusArrivalTime(schedule);
+
+            if (isSaved) {
+                EmailService.sendBusArrivalEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
+                TransactionUtil.endTransaction();
+            } else {
+                TransactionUtil.rollBack();
+                throw new SQLException("Failed to save bus arrival time!");
+            }
+        } catch (SQLException e) {
+            TransactionUtil.rollBack();
+            throw e;
+        } finally {
+            TransactionUtil.endTransaction();
+        }
+        return false;
     }
 
     @Override
     public boolean saveBusReturnTime(ScheduleDTO scheduleDTO) throws SQLException {
-        return busDAO.saveBusReturnTime(scheduleDTO.getBusId(), scheduleDTO.getDate(), scheduleDTO.getScheduleTime());
+        try {
+            TransactionUtil.startTransaction();
+
+            Schedule schedule = new Schedule();
+            schedule.setBusId(scheduleDTO.getBusId());
+            schedule.setDate(scheduleDTO.getDate());
+            schedule.setTimeType("RETURN");
+            schedule.setScheduleTime(scheduleDTO.getScheduleTime());
+
+            boolean isSaved = busDAO.saveBusReturnTime(schedule);
+
+            if (isSaved) {
+                EmailService.sendBusReturnEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
+                TransactionUtil.endTransaction();
+            } else {
+                TransactionUtil.rollBack();
+                throw new SQLException("Failed to save bus return time!");
+            }
+        } catch (SQLException e) {
+            TransactionUtil.rollBack();
+            throw e;
+        } finally {
+            TransactionUtil.endTransaction();
+        }
+        return false;
     }
 
     @Override

@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class GuardianshipDTO {
     private String studentId;
+    private String studentName;
     private String guardianId;
+    private String guardianName;
     private String emergencyContact;
+    private String relation;
 }

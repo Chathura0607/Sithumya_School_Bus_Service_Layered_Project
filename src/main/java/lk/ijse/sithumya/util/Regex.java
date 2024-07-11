@@ -67,6 +67,10 @@ public class Regex {
             case ITEMId:
                 field = "^[a-zA-Z0-9]+$";
                 break;
+
+            case TIME:
+                field = "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$";
+                break;
         }
 
         Pattern pattern = Pattern.compile(field);

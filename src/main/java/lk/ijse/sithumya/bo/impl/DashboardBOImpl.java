@@ -2,14 +2,17 @@ package lk.ijse.sithumya.bo.impl;
 
 import lk.ijse.sithumya.bo.custom.DashboardBO;
 import lk.ijse.sithumya.dao.DAOFactory;
+import lk.ijse.sithumya.dao.custom.QueryDAO;
 import lk.ijse.sithumya.dao.custom.DashboardDAO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
+import lk.ijse.sithumya.entity.TodayPayments;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class DashboardBOImpl implements DashboardBO {
     private DashboardDAO dashboardDAO = (DashboardDAO) DAOFactory.getDAOFactory().getDAOType(DAOFactory.DAOTypes.DASHBOARD);
+    private QueryDAO queryDAO = (QueryDAO) DAOFactory.getDAOFactory().getDAOType(DAOFactory.DAOTypes.QUERY);
 
     @Override
     public int getTotalStudentsCount() throws SQLException, ClassNotFoundException {
@@ -32,24 +35,18 @@ public class DashboardBOImpl implements DashboardBO {
     }
 
     @Override
-    public List<TodayPaymentsDTO> loadTodayPayments() throws SQLException {
-        return dashboardDAO.loadTodayPayments();
-    }
+    public ArrayList<TodayPaymentsDTO> loadTodayPayments() throws SQLException {
+        ArrayList<TodayPaymentsDTO> allTodayPayments = new ArrayList<>();
+        ArrayList<TodayPayments> all = queryDAO.loadTodayPayments();
 
-    /*@Override
-    public ObservableList<TodayPaymentsTm> loadTodayPayments() throws SQLException {
-        List<TodayPaymentsDTO> paymentList = dashboardDAO.loadTodayPayments();
-        ObservableList<TodayPaymentsTm> obList = FXCollections.observableArrayList();
-
-        for (TodayPaymentsDTO todayPayment : paymentList) {
-            TodayPaymentsTm todayPaymentTm = new TodayPaymentsTm(
-                    todayPayment.getPaymentId(),
-                    todayPayment.getStudentName(),
-                    todayPayment.getPaymentPlanName(),
-                    todayPayment.getPaymentAmount()
-            );
-            obList.add(todayPaymentTm);
+        for (TodayPayments todayPayments : all) {
+            allTodayPayments.add(new TodayPaymentsDTO(
+                    todayPayments.getPaymentId(),
+                    todayPayments.getStudentName(),
+                    todayPayments.getPaymentPlanName(),
+                    todayPayments.getPaymentAmount()
+            ));
         }
-        return obList;
-    }*/
+        return allTodayPayments;
+    }
 }

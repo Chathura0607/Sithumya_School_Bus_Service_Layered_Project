@@ -3,9 +3,7 @@ package lk.ijse.sithumya.bo.impl;
 import lk.ijse.sithumya.bo.custom.FeeBO;
 import lk.ijse.sithumya.dao.DAOFactory;
 import lk.ijse.sithumya.dao.custom.FeeDAO;
-import lk.ijse.sithumya.dto.BusDTO;
 import lk.ijse.sithumya.dto.FeeDTO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Fee;
 
 import java.sql.SQLException;
@@ -31,5 +29,10 @@ public class FeeBOImpl implements FeeBO {
             ));
         }
         return allFees;
+    }
+
+    @Override
+    public boolean setPlan(FeeDTO feeDTO) throws SQLException, ClassNotFoundException {
+        return feeDAO.update(new Fee(feeDTO.getFeeId(), feeDTO.getStudentId(), feeDTO.getPlanId(), feeDTO.getMonthlyFee(), feeDTO.getDiscount(), feeDTO.getTotalAmount(), feeDTO.getDueDate()));
     }
 }

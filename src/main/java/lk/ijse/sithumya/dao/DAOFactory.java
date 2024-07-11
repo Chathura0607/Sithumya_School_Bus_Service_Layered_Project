@@ -6,7 +6,7 @@ public class DAOFactory {
     private static DAOFactory daoFactory;
 
     public enum DAOTypes {
-        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT, STATION, STOCK, PLAN, PAYMENT, MAINTENANCE, GUARDIANSHIP, FEE, SALARY, RECORD
+        USER, DASHBOARD, BUS, GUARDIAN, DRIVER, STUDENT, STATION, STOCK, PLAN, PAYMENT, MAINTENANCE, GUARDIANSHIP, FEE, SALARY, RECORD, QUERY
     }
 
     private DAOFactory() {
@@ -62,6 +62,9 @@ public class DAOFactory {
 
             case RECORD:
                 return new FuelingRecordDAOImpl();
+
+            case QUERY:
+                return new QueryDAOImpl();
 
             default:
                 return null;

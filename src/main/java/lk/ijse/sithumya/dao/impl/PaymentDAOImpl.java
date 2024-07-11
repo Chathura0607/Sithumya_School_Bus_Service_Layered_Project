@@ -1,6 +1,7 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.PaymentDAO;
+import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Payment;
 import lk.ijse.sithumya.util.SqlUtil;
 
@@ -12,12 +13,31 @@ import java.util.List;
 public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public ArrayList<Payment> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Payment> allPayments = new ArrayList<>();
+        ResultSet resultSet = SqlUtil.sql("SELECT * from Payment");
+        while (resultSet.next()) {
+            Payment payment = new Payment(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4),
+                    resultSet.getDate(5),
+                    resultSet.getString(6)
+            );
+            allPayments.add(payment);
+        }
+        return allPayments;
     }
 
     @Override
     public boolean save(Payment entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("INSERT INTO Payment (Payment_ID, Student_ID, Payment_Plan_ID, Amount, Payment_Date, Is_Completed) VALUES (?, ?, ?, ?, ?, ?)",
+                entity.getPaymentId(),
+                entity.getStudentId(),
+                entity.getPaymentPlanId(),
+                entity.getAmount(),
+                entity.getPaymentDate(),
+                entity.getIsCompleted());
     }
 
     @Override

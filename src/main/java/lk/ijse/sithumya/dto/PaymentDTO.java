@@ -16,4 +16,12 @@ public class PaymentDTO {
     private double amount;
     private Date paymentDate;
     private String isCompleted;
+
+    public PaymentDTO(String studentId, String paymentPlanId, double amount, Date paymentDate, String yes) {
+        this.studentId = studentId;
+        this.paymentPlanId = paymentPlanId;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.isCompleted = yes;
+    }
 }
