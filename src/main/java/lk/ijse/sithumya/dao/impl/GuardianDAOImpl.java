@@ -1,7 +1,6 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.GuardianDAO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.util.SqlUtil;
 

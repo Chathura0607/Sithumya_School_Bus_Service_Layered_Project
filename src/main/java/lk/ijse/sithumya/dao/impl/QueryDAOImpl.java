@@ -2,6 +2,7 @@ package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.QueryDAO;
 import lk.ijse.sithumya.entity.GuardianshipDetails;
+import lk.ijse.sithumya.entity.PenaltyDetails;
 import lk.ijse.sithumya.entity.TodayPayments;
 import lk.ijse.sithumya.util.SqlUtil;
 
@@ -51,5 +52,25 @@ public class QueryDAOImpl implements QueryDAO {
             ));
         }
         return allTodayPayments;
+    }
+
+    @Override
+    public ArrayList<PenaltyDetails> loadAllPenalties() throws SQLException {
+        ArrayList<PenaltyDetails> allPenalties = new ArrayList<>();
+        ResultSet resultSet = SqlUtil.sql("SELECT p.Penalty_ID, p.Fee_ID, p.Amount, f.Student_ID, s.Name " +
+                "FROM Penalty p " +
+                "JOIN Fee f ON p.Fee_ID = f.Fee_ID " +
+                "JOIN Student s ON f.Student_ID = s.Student_ID;");
+
+        while (resultSet.next()) {
+            allPenalties.add(new PenaltyDetails(
+                    resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    resultSet.getDouble(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            ));
+        }
+        return allPenalties;
     }
 }

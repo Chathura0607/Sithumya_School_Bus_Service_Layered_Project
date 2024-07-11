@@ -1,5 +1,6 @@
 package lk.ijse.sithumya.bo.custom;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.bo.SuperBO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
 
@@ -16,4 +17,6 @@ public interface DashboardBO extends SuperBO {
     String getUserName() throws SQLException, ClassNotFoundException;
 
     ArrayList<TodayPaymentsDTO> loadTodayPayments() throws SQLException;
+
+    XYChart.Series<String, Number> getChartData() throws SQLException;
 }

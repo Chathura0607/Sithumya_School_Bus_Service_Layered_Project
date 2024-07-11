@@ -1,7 +1,7 @@
 package lk.ijse.sithumya.dao.impl;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.dao.custom.DashboardDAO;
-import lk.ijse.sithumya.dto.TodayPaymentsDTO;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;
@@ -32,6 +32,18 @@ public class DashboardDAOImpl implements DashboardDAO {
     public String getUserName() throws SQLException {
         ResultSet resultSet = SqlUtil.sql("SELECT Name FROM User");
         return resultSet.next() ? resultSet.getString("Name") + "," : null;
+    }
+
+    @Override
+    public XYChart.Series<String, Number> getChartData() throws SQLException {
+        ResultSet resultSet = SqlUtil.sql("SELECT School_Name, COUNT(*) AS Count FROM Student GROUP BY School_Name");
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        while (resultSet.next()) {
+            String propertyType = resultSet.getString("School_Name");
+            int count = resultSet.getInt("Count");
+            series.getData().add(new XYChart.Data<>(propertyType, count));
+        }
+        return series;
     }
 
     @Override

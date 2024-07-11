@@ -1,5 +1,6 @@
 package lk.ijse.sithumya.bo.impl;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.bo.custom.PaymentBO;
 import lk.ijse.sithumya.dao.DAOFactory;
 import lk.ijse.sithumya.dao.custom.FeeDAO;
@@ -76,6 +77,11 @@ public class PaymentBOImpl implements PaymentBO {
     @Override
     public double getRemainingFeeAmount(String studentId) throws SQLException {
         return feeDAO.getRemainingFeeAmount(studentId);
+    }
+
+    @Override
+    public XYChart.Series<String, Number> getChartData() throws SQLException {
+        return paymentDAO.getChartData();
     }
 
     private boolean updateFeeAfterPayment(Payment payment) throws SQLException {

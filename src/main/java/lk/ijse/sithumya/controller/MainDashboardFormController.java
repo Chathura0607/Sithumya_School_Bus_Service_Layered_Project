@@ -15,10 +15,8 @@ import lk.ijse.sithumya.bo.custom.DashboardBO;
 import lk.ijse.sithumya.dto.TodayPaymentsDTO;
 import lk.ijse.sithumya.view.tm.TodayPaymentsTm;
 import lk.ijse.sithumya.util.Navigation;
-import lk.ijse.sithumya.util.SqlUtil;
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -71,7 +69,7 @@ public class MainDashboardFormController {
     }
 
     @FXML
-    private void initialize() throws SQLException {
+    private void initialize() {
         loadTodayPayments();
         setCellValueFactory();
 
@@ -86,20 +84,15 @@ public class MainDashboardFormController {
         lblDriverCount.setText(String.valueOf(getTotalDriversCount()));
         lblUser.setText(getUsername());
 
-        try {
-            populateChart(barChart);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        populateChart(barChart);
     }
 
-    private void populateChart(BarChart<String, Number> barChart) throws SQLException {
-        ResultSet resultSet = SqlUtil.sql("SELECT School_Name, COUNT(*) AS Count FROM Student GROUP BY School_Name");
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        while (resultSet.next()) {
-            String propertyType = resultSet.getString("School_Name");
-            int count = resultSet.getInt("Count");
-            series.getData().add(new XYChart.Data<>(propertyType, count));
+    private void populateChart(BarChart<String, Number> barChart) {
+        XYChart.Series<String, Number> series = null;
+        try {
+            series = dashboardBO.getChartData();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         barChart.getData().add(series);
         for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {

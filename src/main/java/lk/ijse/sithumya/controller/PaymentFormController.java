@@ -12,10 +12,8 @@ import javafx.scene.layout.Pane;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.PaymentBO;
 import lk.ijse.sithumya.bo.custom.PaymentPlanBO;
-import lk.ijse.sithumya.util.SqlUtil;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PaymentFormController {
@@ -66,13 +64,9 @@ public class PaymentFormController {
     }
 
     public void initialize() {
-        try {
-            populateChart(barChart);
-            lblPlanCount.setText(String.valueOf(getTotalPlanCount()));
-            lblIncome.setText(String.valueOf(getTotalPaymentAmount()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        populateChart(barChart);
+        lblPlanCount.setText(String.valueOf(getTotalPlanCount()));
+        lblIncome.setText(String.valueOf(getTotalPaymentAmount()));
     }
 
     private double getTotalPaymentAmount() {
@@ -93,19 +87,15 @@ public class PaymentFormController {
         return 0;
     }
 
-    private void populateChart(BarChart<String, Number> barChart) throws SQLException {
-        ResultSet resultSet = SqlUtil.sql("SELECT s.Name AS Student_Name, SUM(p.Amount) AS Total_Payment " +
-                "FROM Student s " +
-                "LEFT JOIN Payment p ON s.Student_ID = p.Student_ID " +
-                "GROUP BY s.Name");
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        while (resultSet.next()) {
-            String studentName = resultSet.getString("Student_Name");
-            double totalPayment = resultSet.getDouble("Total_Payment");
-            series.getData().add(new XYChart.Data<>(studentName, totalPayment));
+    private void populateChart(BarChart<String, Number> barChart) {
+        XYChart.Series<String, Number> series = null;
+        try {
+            series = paymentBO.getChartData();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         barChart.getData().add(series);
-        for (Node n : barChart.lookupAll(".default-color0.chart-bar")) {
+        for (Node n:barChart.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: #E0A383;");
         }
     }

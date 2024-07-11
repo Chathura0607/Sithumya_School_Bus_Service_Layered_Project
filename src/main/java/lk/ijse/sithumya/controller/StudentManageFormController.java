@@ -117,7 +117,7 @@ public class StudentManageFormController {
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
-        String studentId = cmbStudentId.getValue(); // Get selected student ID
+        String studentId = cmbStudentId.getValue();
         if (studentId == null || studentId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please select a Student ID.").show();
             return;
@@ -126,7 +126,7 @@ public class StudentManageFormController {
         if (isTextValid()) {
             try {
                 StudentDTO studentDTO = createStudentDTOFromForm();
-                studentDTO.setStudentId(studentId); // Set the correct student ID for update
+                studentDTO.setStudentId(studentId);
                 FeeDTO feeDTO = createFeeDTOFromStudent(studentDTO);
 
                 if (studentBO.updateStudentAndFee(studentDTO, feeDTO)) {

@@ -27,7 +27,7 @@ public class UserBOImpl implements UserBO {
             if (dbUser.getPassword().equals(user.getPassword())) {
                 Navigation.navigateToDashboard();
                 String loginTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                //EmailService.sendLoginSuccessEmail(user.getUserName(), loginTime);
+                EmailService.sendLoginSuccessEmail(user.getUserName(), loginTime);
             } else {
                 new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
             }

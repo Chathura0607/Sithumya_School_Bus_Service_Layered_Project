@@ -1,7 +1,7 @@
 package lk.ijse.sithumya.dao.impl;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.dao.custom.PaymentDAO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Payment;
 import lk.ijse.sithumya.util.SqlUtil;
 
@@ -69,5 +69,20 @@ public class PaymentDAOImpl implements PaymentDAO {
     public double getTotalPaymentAmount() throws SQLException {
         ResultSet resultSet = SqlUtil.sql("SELECT SUM(Amount) AS TotalAmount FROM Payment;");
         return resultSet.next() ? resultSet.getDouble("TotalAmount") : 0.00;
+    }
+
+    @Override
+    public XYChart.Series<String, Number> getChartData() throws SQLException {
+        ResultSet resultSet = SqlUtil.sql("SELECT s.Name AS Student_Name, SUM(p.Amount) AS Total_Payment " +
+                "FROM Student s " +
+                "LEFT JOIN Payment p ON s.Student_ID = p.Student_ID " +
+                "GROUP BY s.Name");
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        while (resultSet.next()) {
+            String propertyType = resultSet.getString("Student_Name");
+            double count = resultSet.getDouble("Total_Payment");
+            series.getData().add(new XYChart.Data<>(propertyType, count));
+        }
+        return series;
     }
 }

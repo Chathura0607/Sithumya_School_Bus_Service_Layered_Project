@@ -1,5 +1,6 @@
 package lk.ijse.sithumya.bo.custom;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.bo.SuperBO;
 import lk.ijse.sithumya.dto.PaymentDTO;
 
@@ -14,4 +15,6 @@ public interface PaymentBO extends SuperBO {
     boolean savePayment(PaymentDTO payment) throws SQLException, ClassNotFoundException;
 
     double getRemainingFeeAmount(String studentId) throws SQLException;
+
+    XYChart.Series<String, Number> getChartData() throws SQLException;
 }

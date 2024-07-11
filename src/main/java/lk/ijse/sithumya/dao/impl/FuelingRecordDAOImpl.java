@@ -1,7 +1,6 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.FuelingRecordDAO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.FuelingRecord;
 import lk.ijse.sithumya.util.SqlUtil;
 

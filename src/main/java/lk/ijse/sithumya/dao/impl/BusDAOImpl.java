@@ -5,10 +5,8 @@ import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.Schedule;
 import lk.ijse.sithumya.util.SqlUtil;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 

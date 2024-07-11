@@ -1,9 +1,7 @@
 package lk.ijse.sithumya.dao.impl;
 
 import lk.ijse.sithumya.dao.custom.FillingStationDAO;
-import lk.ijse.sithumya.entity.Bus;
 import lk.ijse.sithumya.entity.FillingStation;
-import lk.ijse.sithumya.entity.Guardian;
 import lk.ijse.sithumya.util.SqlUtil;
 
 import java.sql.ResultSet;

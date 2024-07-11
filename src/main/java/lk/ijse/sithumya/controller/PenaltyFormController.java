@@ -4,7 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.sithumya.bo.BOFactory;
+import lk.ijse.sithumya.bo.custom.PenaltyBO;
+import lk.ijse.sithumya.dto.PenaltyDetailsDTO;
 import lk.ijse.sithumya.view.tm.PenaltyDetailsTm;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PenaltyFormController {
 
@@ -26,19 +32,21 @@ public class PenaltyFormController {
     @FXML
     private TableView<PenaltyDetailsTm> tblPenalty;
 
+    private PenaltyBO penaltyBO = (PenaltyBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.PENALTY);
+
     public void initialize() {
         setCellValueFactory();
         loadAllPenalties();
     }
 
     public void loadAllPenalties() {
-        /*tblPenalty.getItems().clear();
+        tblPenalty.getItems().clear();
 
         try {
-            List<PenaltyDetailsTm> penaltyList = model.getAllPenalties();
+            ArrayList<PenaltyDetailsDTO> loadAllPenalties = penaltyBO.getAllPenalties();
 
-            for (PenaltyDetailsTm penalty : penaltyList) {
-                tmList.add(new PenaltyDetailsTm(
+            for (PenaltyDetailsDTO penalty : loadAllPenalties) {
+                tblPenalty.getItems().add(new PenaltyDetailsTm(
                         penalty.getPenaltyId(),
                         penalty.getFeeId(),
                         penalty.getPenaltyAmount(),
@@ -46,10 +54,9 @@ public class PenaltyFormController {
                         penalty.getStudentName()
                 ));
             }
-            tblPenalty.setItems(tmList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
     private void setCellValueFactory() {

@@ -1,5 +1,6 @@
 package lk.ijse.sithumya.bo.impl;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.sithumya.bo.custom.DashboardBO;
 import lk.ijse.sithumya.dao.DAOFactory;
 import lk.ijse.sithumya.dao.custom.QueryDAO;
@@ -48,5 +49,10 @@ public class DashboardBOImpl implements DashboardBO {
             ));
         }
         return allTodayPayments;
+    }
+
+    @Override
+    public XYChart.Series<String, Number> getChartData() throws SQLException {
+        return dashboardDAO.getChartData();
     }
 }
