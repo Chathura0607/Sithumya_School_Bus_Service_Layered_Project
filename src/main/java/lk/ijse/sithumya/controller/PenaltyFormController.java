@@ -55,7 +55,7 @@ public class PenaltyFormController {
                 ));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

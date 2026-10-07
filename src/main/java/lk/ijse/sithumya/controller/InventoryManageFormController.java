@@ -43,6 +43,10 @@ public class InventoryManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String stockId = txtItemId.getText();
+        if (stockId == null || stockId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter an Item ID to delete.").show();
+            return;
+        }
 
         try {
             StockDTO stock = stockBO.searchItem(stockId);
@@ -52,7 +56,9 @@ public class InventoryManageFormController {
                 if (isDeleted) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Item Deleted Successfully!").show();
                     clearFields();
-                    InventoryFormController.getController().initialize();
+                    if (InventoryFormController.getController() != null) {
+                        InventoryFormController.getController().initialize();
+                    }
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Item Not Found!").show();
@@ -67,29 +73,36 @@ public class InventoryManageFormController {
     void btnSaveOnAction(ActionEvent event) {
         String itemId = txtItemId.getText();
         String name = txtName.getText();
-        double qty = Double.parseDouble(txtQty.getText());
-        double cost = Double.parseDouble(txtCost.getText());
+        String maintenanceId = cmbMaintenanceId.getValue();
 
         if (isTextValid()) {
-
             try {
-                boolean isSaved = stockBO.saveItem(new StockDTO(itemId, null, name, qty, cost));
+                double qty = Double.parseDouble(txtQty.getText());
+                double cost = Double.parseDouble(txtCost.getText());
+
+                boolean isSaved = stockBO.saveItem(new StockDTO(itemId, maintenanceId, name, qty, cost));
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Item Saved Successfully!").show();
                     clearFields();
-                    InventoryFormController.getController().initialize();
+                    if (InventoryFormController.getController() != null) {
+                        InventoryFormController.getController().initialize();
+                    }
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String itemId = txtItemId.getText();
+        if (itemId == null || itemId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter an Item ID to search.").show();
+            return;
+        }
 
         try {
             StockDTO stock = stockBO.searchItem(itemId);
@@ -109,26 +122,29 @@ public class InventoryManageFormController {
     void btnUpdateOnAction(ActionEvent event) {
         String itemId = txtItemId.getText();
         String name = txtName.getText();
-        double qty = Double.parseDouble(txtQty.getText());
-        double cost = Double.parseDouble(txtCost.getText());
         String maintenanceId = cmbMaintenanceId.getValue();
 
         if (isTextValid()) {
-
             try {
+                double qty = Double.parseDouble(txtQty.getText());
+                double cost = Double.parseDouble(txtCost.getText());
+
                 boolean isUpdated = stockBO.updateItem(new StockDTO(itemId, maintenanceId, name, qty, cost));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Item Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Item Updated Successfully!").show();
                     clearFields();
-                    InventoryFormController.getController().initialize();
+                    if (InventoryFormController.getController() != null) {
+                        InventoryFormController.getController().initialize();
+                    }
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void txtCostOnKeyReleased(KeyEvent event) {

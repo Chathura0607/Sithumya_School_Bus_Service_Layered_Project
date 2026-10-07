@@ -36,17 +36,38 @@ public class SendBusScheduleFormController {
     void btnSendArrivalTimeOnAction(ActionEvent event) {
         String busId = cmbBusId.getValue();
         LocalDate date = dtpDate.getValue();
-        LocalTime arrivalTime = LocalTime.parse(txtArrivalTime.getText());
 
-        if (isTextValid()) {
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID.").show();
+            return;
+        }
+
+        if (date == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Date.").show();
+            return;
+        }
+
+        if (isArrivalTimeValid()) {
             try {
-                busBO.saveBusArrivalTime(new ScheduleDTO(busId, date, arrivalTime));
-                new Alert(Alert.AlertType.CONFIRMATION, "Bus arrival time saved and emails sent successfully!").show();
+                String timeText = txtArrivalTime.getText().trim();
+                LocalTime arrivalTime = parseFlexibleTime(timeText);
+                if (arrivalTime == null) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid time format. Please use HH:mm or HH:mm:ss (e.g. 07:30:00)").show();
+                    return;
+                }
+
+                boolean isSaved = busBO.saveBusArrivalTime(new ScheduleDTO(busId, date, arrivalTime));
+                if (isSaved) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Bus arrival time saved and notification emails dispatched!").show();
+                    txtArrivalTime.clear();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to record bus arrival time.").show();
+                }
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                new Alert(Alert.AlertType.ERROR, "Error saving schedule: " + e.getMessage()).show();
             }
-        }  else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid arrival time. Example: 07:30:00").show();
         }
     }
 
@@ -54,43 +75,78 @@ public class SendBusScheduleFormController {
     void btnSendReturnTimeOnAction(ActionEvent event) {
         String busId = cmbBusId.getValue();
         LocalDate date = dtpDate.getValue();
-        LocalTime returnTime = LocalTime.parse(txtReturnTime.getText());
 
-        if (isTextValid()) {
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID.").show();
+            return;
+        }
+
+        if (date == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Date.").show();
+            return;
+        }
+
+        if (isReturnTimeValid()) {
             try {
-                busBO.saveBusReturnTime(new ScheduleDTO(busId, date, returnTime));
-                new Alert(Alert.AlertType.CONFIRMATION, "Bus return time saved and emails sent successfully!").show();
+                String timeText = txtReturnTime.getText().trim();
+                LocalTime returnTime = parseFlexibleTime(timeText);
+                if (returnTime == null) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid time format. Please use HH:mm or HH:mm:ss (e.g. 14:00:00)").show();
+                    return;
+                }
+
+                boolean isSaved = busBO.saveBusReturnTime(new ScheduleDTO(busId, date, returnTime));
+                if (isSaved) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Bus return time saved and notification emails dispatched!").show();
+                    txtReturnTime.clear();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to record bus return time.").show();
+                }
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                new Alert(Alert.AlertType.ERROR, "Error saving schedule: " + e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid return time. Example: 14:00:00").show();
+        }
+    }
+
+    private LocalTime parseFlexibleTime(String timeText) {
+        try {
+            if (timeText.length() == 5) {
+                timeText = timeText + ":00";
+            }
+            return LocalTime.parse(timeText);
+        } catch (Exception e) {
+            return null;
         }
     }
 
     @FXML
     void txtArrivalOnKeyReleased(KeyEvent event) {
-        Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtArrivalTime);
+        isArrivalTimeValid();
     }
 
     @FXML
     void txtReturnOnKeyReleased(KeyEvent event) {
-        Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtReturnTime);
+        isReturnTimeValid();
     }
 
     public void initialize() {
         try {
             List<String> busIds = busBO.getAllBusIds();
             cmbBusId.getItems().addAll(busIds);
+            dtpDate.setValue(LocalDate.now());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isTextValid() {
-        boolean isArrivalTimeValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtArrivalTime);
-        boolean isReturnTimeValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtReturnTime);
+    public boolean isArrivalTimeValid() {
+        return Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtArrivalTime);
+    }
 
-        return isArrivalTimeValid && isReturnTimeValid;
+    public boolean isReturnTimeValid() {
+        return Regex.setTextColor(lk.ijse.sithumya.util.TextField.TIME, txtReturnTime);
     }
 }
+

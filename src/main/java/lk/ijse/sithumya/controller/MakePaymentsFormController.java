@@ -50,6 +50,12 @@ public class MakePaymentsFormController {
                 if (isPaymentSuccessful) {
                     new Alert(Alert.AlertType.INFORMATION, "Payment successful! Payment has been successfully recorded.").show();
                     clearForm();
+                    if (FeePaymentFormController.getController() != null) {
+                        FeePaymentFormController.getController().loadAllPayments();
+                    }
+                    if (MonthlyFeeFormController.getController() != null) {
+                        MonthlyFeeFormController.getController().loadAllFees();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Payment failed: Failed to record the payment.").show();
                 }
@@ -60,15 +66,31 @@ public class MakePaymentsFormController {
     }
 
     @FXML
-    void btnPrintBillOnAction(ActionEvent event) throws SQLException, JRException {
-        JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/reports/Sithumya_Payment_Report.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+    void btnPrintBillOnAction(ActionEvent event) {
+        String studentId = cmbStudentId.getValue();
+        if (studentId == null || studentId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Student ID first to print the bill!").show();
+            return;
+        }
 
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("Student_ID", cmbStudentId.getValue());
+        try {
+            java.io.InputStream reportStream = getClass().getResourceAsStream("/reports/Sithumya_Payment_Report.jrxml");
+            if (reportStream == null) {
+                new Alert(Alert.AlertType.ERROR, "Payment Report template not found in resources!").show();
+                return;
+            }
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbConnection.getInstance().getConnection());
-        JasperViewer.viewReport(jasperPrint, false);
+            JasperDesign jasperDesign = JRXmlLoader.load(reportStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("Student_ID", studentId);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbConnection.getInstance().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report: " + e.getMessage()).show();
+        }
     }
 
     public void initialize() {
@@ -103,14 +125,28 @@ public class MakePaymentsFormController {
     }
 
     private PaymentDTO createPaymentFromForm() {
+        if (cmbStudentId.getValue() == null || cmbStudentId.getValue().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Student ID!").show();
+            return null;
+        }
+        if (dtpPaymentDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a payment date!").show();
+            return null;
+        }
 
         if (isTextValid()) {
             String studentId = cmbStudentId.getValue();
             String paymentPlanId = txtPlan.getText();
-            double amount = Double.parseDouble(txtAmount.getText());
-            Date paymentDate = Date.valueOf(dtpPaymentDate.getValue());
-
-            return new PaymentDTO(studentId, paymentPlanId, amount, paymentDate, "YES");
+            try {
+                double amount = Double.parseDouble(txtAmount.getText().trim());
+                Date paymentDate = Date.valueOf(dtpPaymentDate.getValue());
+                return new PaymentDTO(studentId, paymentPlanId, amount, paymentDate, "YES");
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Please enter a valid payment amount!").show();
+                return null;
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please check all fields and ensure valid inputs!").show();
         }
         return null;
     }
@@ -118,7 +154,7 @@ public class MakePaymentsFormController {
     private boolean isPaymentValid(PaymentDTO payment) throws SQLException {
         double remainingFeeAmount = paymentBO.getRemainingFeeAmount(payment.getStudentId());
         if (payment.getAmount() > remainingFeeAmount) {
-            new Alert(Alert.AlertType.ERROR, "Invalid payment, Payment amount exceeds the remaining fee amount!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid payment: Payment amount (Rs. " + payment.getAmount() + ") exceeds the remaining fee amount (Rs. " + remainingFeeAmount + ")!").show();
             return false;
         }
         return true;
@@ -129,6 +165,8 @@ public class MakePaymentsFormController {
         txtPlan.clear();
         txtAmount.clear();
         dtpPaymentDate.setValue(null);
+        dtpPaymentDate.getEditor().clear();
+        Regex.resetColor(txtPlan, txtAmount, dtpPaymentDate.getEditor());
     }
 
     @FXML
@@ -148,7 +186,7 @@ public class MakePaymentsFormController {
 
     public boolean isTextValid() {
         boolean isPaymentValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.COST, txtAmount);
-        boolean isDateValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.DATE, dtpPaymentDate.getEditor());
+        boolean isDateValid = dtpPaymentDate.getValue() != null || Regex.setTextColor(lk.ijse.sithumya.util.TextField.DATE, dtpPaymentDate.getEditor());
         boolean isPlanValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.PLANId, txtPlan);
 
         return isPaymentValid && isDateValid && isPlanValid;

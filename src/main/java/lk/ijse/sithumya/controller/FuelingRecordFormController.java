@@ -58,30 +58,42 @@ public class FuelingRecordFormController {
 
     @FXML
     void btnRecordOnAction(ActionEvent event) {
-        try {
-            String busId = cmbBusId.getValue();
-            String stationId = cmbStationId.getValue();
-            double totalCost = Double.parseDouble(txtCost.getText());
-            double paymentAmount = Double.parseDouble(txtPayment.getText());
-            double debtAmount = totalCost - paymentAmount;
+        String busId = cmbBusId.getValue();
+        String stationId = cmbStationId.getValue();
 
-            if (isTextValid()) {
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID.").show();
+            return;
+        }
+
+        if (stationId == null || stationId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Filling Station ID.").show();
+            return;
+        }
+
+        if (isTextValid()) {
+            try {
+                double totalCost = Double.parseDouble(txtCost.getText());
+                double paymentAmount = Double.parseDouble(txtPayment.getText());
+                double debtAmount = totalCost - paymentAmount;
+
                 boolean isSaved = fuelingRecordBO.isRecordSaved(new FuelingRecordDTO(busId, stationId, totalCost, paymentAmount, debtAmount));
 
                 if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Record Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Fueling Record Saved Successfully!").show();
                     initialize();
                     clearFields();
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save record!").show();
+                    new Alert(Alert.AlertType.ERROR, "Failed to save fueling record!").show();
                 }
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void txtCostOnKeyReleased(KeyEvent event) {

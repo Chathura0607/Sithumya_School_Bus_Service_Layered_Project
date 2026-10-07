@@ -45,6 +45,10 @@ public class MaintenanceManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String maintenanceId = txtMaintenanceId.getText();
+        if (maintenanceId == null || maintenanceId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Maintenance ID to delete.").show();
+            return;
+        }
 
         try {
             MaintenanceDTO maintenance = maintenanceBO.searchMaintenance(maintenanceId);
@@ -55,7 +59,9 @@ public class MaintenanceManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Maintenance Deleted Successfully!").show();
                     clearFields();
                     refreshBusIds();
-                    MaintenanceFormController.getController().initialize();
+                    if (MaintenanceFormController.getController() != null) {
+                        MaintenanceFormController.getController().initialize();
+                    }
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Maintenance Not Found!").show();
@@ -71,29 +77,46 @@ public class MaintenanceManageFormController {
         String maintenanceId = txtMaintenanceId.getText();
         String busId = cmbBusId.getValue();
         String description = txtDescription.getText();
-        double cost = Double.parseDouble(txtCost.getText());
-        Date date = Date.valueOf(dtpDate.getValue());
+
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Maintenance Date.").show();
+            return;
+        }
 
         if (isTextValid()) {
             try {
+                double cost = Double.parseDouble(txtCost.getText());
+                Date date = Date.valueOf(dtpDate.getValue());
+
                 boolean isSaved = maintenanceBO.saveMaintenance(new MaintenanceDTO(maintenanceId, busId, description, cost, date));
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Maintenance Saved Successfully!").show();
                     clearFields();
                     refreshBusIds();
-                    MaintenanceFormController.getController().initialize();
+                    if (MaintenanceFormController.getController() != null) {
+                        MaintenanceFormController.getController().initialize();
+                    }
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String maintenanceId = txtMaintenanceId.getText();
+        if (maintenanceId == null || maintenanceId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Maintenance ID to search.").show();
+            return;
+        }
 
         try {
             MaintenanceDTO maintenance = maintenanceBO.searchMaintenance(maintenanceId);
@@ -114,26 +137,39 @@ public class MaintenanceManageFormController {
         String maintenanceId = txtMaintenanceId.getText();
         String busId = cmbBusId.getValue();
         String description = txtDescription.getText();
-        double cost = Double.parseDouble(txtCost.getText());
-        Date date = Date.valueOf(dtpDate.getValue().toString());
+
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Maintenance Date.").show();
+            return;
+        }
 
         if (isTextValid()) {
             try {
+                double cost = Double.parseDouble(txtCost.getText());
+                Date date = Date.valueOf(dtpDate.getValue());
 
                 boolean isUpdated = maintenanceBO.updateMaintenance(new MaintenanceDTO(maintenanceId, busId, description, cost, date));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Maintenance Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Maintenance Updated Successfully!").show();
                     clearFields();
                     refreshBusIds();
-                    MaintenanceFormController.getController().initialize();
+                    if (MaintenanceFormController.getController() != null) {
+                        MaintenanceFormController.getController().initialize();
+                    }
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void dtpDateOnKeyReleased(KeyEvent event) {

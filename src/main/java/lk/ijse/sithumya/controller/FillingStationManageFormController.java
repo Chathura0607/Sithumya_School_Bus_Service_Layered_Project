@@ -40,16 +40,23 @@ public class FillingStationManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String stationId = cmbStationId.getValue();
+        if (stationId == null || stationId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Station ID to delete.").show();
+            return;
+        }
 
         try{
             FillingStationDTO fillingStation = fillingStationBO.searchStation(stationId);
             if(fillingStation != null) {
                 boolean isDeleted = fillingStationBO.deleteStation(stationId);
                 if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Station Delete Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Station Deleted Successfully!").show();
                     clearFields();
                     refreshStationIds();
-                    FillingStationFormController.getController().initialize();
+                    generateNextStationId();
+                    if (FillingStationFormController.getController() != null) {
+                        FillingStationFormController.getController().initialize();
+                    }
                 }
             }else {
                 new Alert(Alert.AlertType.ERROR, "Station Not Found!").show();
@@ -68,26 +75,32 @@ public class FillingStationManageFormController {
         String contact = txtContact.getText();
 
         if (isTextValid()) {
-
             try {
                 boolean isSaved = fillingStationBO.saveStation(new FillingStationDTO(id, name, location, contact));
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Station Saved Successfully!").show();
                     clearFields();
                     refreshStationIds();
-                    FillingStationFormController.getController().initialize();
+                    generateNextStationId();
+                    if (FillingStationFormController.getController() != null) {
+                        FillingStationFormController.getController().initialize();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String stationId = cmbStationId.getValue();
+        if (stationId == null || stationId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Station ID to search.").show();
+            return;
+        }
 
         try {
             FillingStationDTO fillingStation = fillingStationBO.searchStation(stationId);
@@ -106,6 +119,11 @@ public class FillingStationManageFormController {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String stationId = cmbStationId.getValue();
+        if (stationId == null || stationId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Station ID to update.").show();
+            return;
+        }
+
         String name = txtName.getText();
         String location = txtLocation.getText();
         String contact = txtContact.getText();
@@ -114,18 +132,21 @@ public class FillingStationManageFormController {
             try {
                 boolean isUpdated = fillingStationBO.updateStation(new FillingStationDTO(stationId, name, location, contact));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Station Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Station Updated Successfully!").show();
                     clearFields();
                     refreshStationIds();
-                    FillingStationFormController.getController().initialize();
+                    if (FillingStationFormController.getController() != null) {
+                        FillingStationFormController.getController().initialize();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void txtContactOnKeyReleased(KeyEvent event) {

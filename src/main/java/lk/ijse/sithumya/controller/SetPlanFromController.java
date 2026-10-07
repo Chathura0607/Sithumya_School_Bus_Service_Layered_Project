@@ -30,6 +30,11 @@ public class SetPlanFromController {
         String studentId = cmbStudentId.getValue();
         String planId = cmbPlanId.getValue();
 
+        if (studentId == null || studentId.trim().isEmpty() || planId == null || planId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select both a Student ID and a Payment Plan ID!").show();
+            return;
+        }
+
         try {
             boolean isUpdated = feeBO.setPlan(new FeeDTO(studentId, planId));
             if(isUpdated) {
@@ -37,7 +42,9 @@ public class SetPlanFromController {
                 clearFields();
                 refreshPlanIds();
                 refreshStudentIds();
-                MonthlyFeeFormController.getController().loadAllFees();
+                if (MonthlyFeeFormController.getController() != null) {
+                    MonthlyFeeFormController.getController().loadAllFees();
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -45,8 +52,8 @@ public class SetPlanFromController {
     }
 
     private void clearFields() {
-        cmbStudentId.getItems().clear();
-        cmbPlanId.getItems().clear();
+        cmbStudentId.getSelectionModel().clearSelection();
+        cmbPlanId.getSelectionModel().clearSelection();
     }
 
     @FXML

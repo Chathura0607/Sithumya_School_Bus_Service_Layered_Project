@@ -39,15 +39,21 @@ public class DriverManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String driverId = txtId.getText();
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Driver ID to delete.").show();
+            return;
+        }
 
         try{
             DriverDTO driver = driverBO.searchDriver(driverId);
             if(driver != null) {
                 boolean isDeleted = driverBO.deleteDriver(driverId);
                 if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Driver Delete Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Driver Deleted Successfully!").show();
                     clearFields();
-                    DriverFormController.getController().initialize();
+                    if (DriverFormController.getController() != null) {
+                        DriverFormController.getController().initialize();
+                    }
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Driver Not Found!").show();
@@ -72,19 +78,25 @@ public class DriverManageFormController {
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Driver Saved Successfully!").show();
                     clearFields();
-                    DriverFormController.getController().initialize();
+                    if (DriverFormController.getController() != null) {
+                        DriverFormController.getController().initialize();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String driverId = txtId.getText();
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Driver ID to search.").show();
+            return;
+        }
 
         try {
             DriverDTO driver = driverBO.searchDriver(driverId);
@@ -112,17 +124,20 @@ public class DriverManageFormController {
             try {
                 boolean isUpdated = driverBO.updateDriver(new DriverDTO(driverId, name, address, email, contact));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Driver Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Driver Updated Successfully!").show();
                     clearFields();
-                    DriverFormController.getController().initialize();
+                    if (DriverFormController.getController() != null) {
+                        DriverFormController.getController().initialize();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void txtAddressOnKeyReleased(KeyEvent event) {

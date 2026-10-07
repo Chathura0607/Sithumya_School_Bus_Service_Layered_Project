@@ -45,23 +45,29 @@ public class BusManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String busId = cmbBusId.getValue();
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID to delete.").show();
+            return;
+        }
 
-        try{
+        try {
             BusDTO bus = busBO.searchBus(busId);
-            if(bus != null) {
+            if (bus != null) {
                 boolean isDeleted = busBO.deleteBus(busId);
                 if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Bus Delete Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Bus Deleted Successfully!").show();
                     clearFields();
                     refreshBusIds();
                     refreshDriverIds();
-                    BusFormController.getController().loadAllBuses();
+                    if (BusFormController.getController() != null) {
+                        BusFormController.getController().loadAllBuses();
+                    }
                 }
-            }else {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Bus Not Found!").show();
                 clearFields();
             }
-        } catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -71,32 +77,51 @@ public class BusManageFormController {
         String busId = nextBusId;
         String name = txtName.getText();
         String driverId = cmbDriverId.getValue();
-        Date date = Date.valueOf(dtpDate.getValue());
+
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Driver for the bus.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Driver Assigned Date.").show();
+            return;
+        }
 
         if (isTextValid()) {
             try {
+                Date date = Date.valueOf(dtpDate.getValue());
                 boolean isSaved = busBO.saveBus(new BusDTO(busId, name, driverId, date));
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Bus Saved Successfully!").show();
                     clearFields();
                     refreshBusIds();
                     refreshDriverIds();
-                    BusFormController.getController().loadAllBuses();
+                    generateNextBusId();
+                    if (BusFormController.getController() != null) {
+                        BusFormController.getController().loadAllBuses();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String busId = cmbBusId.getValue();
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID to search.").show();
+            return;
+        }
 
         try {
             BusDTO bus = busBO.searchBus(busId);
 
-            if(bus != null) {
+            if (bus != null) {
                 fillFields(bus);
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Bus Not Found!").show();
@@ -110,28 +135,45 @@ public class BusManageFormController {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String busId = cmbBusId.getValue();
+        if (busId == null || busId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID to update.").show();
+            return;
+        }
+
         String name = txtName.getText();
         String driverId = cmbDriverId.getValue();
-        Date date = Date.valueOf(dtpDate.getValue());
+
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Driver for the bus.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Driver Assigned Date.").show();
+            return;
+        }
 
         if (isTextValid()) {
-
             try {
+                Date date = Date.valueOf(dtpDate.getValue());
                 boolean isUpdated = busBO.updateBus(new BusDTO(busId, name, driverId, date));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Bus Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Bus Updated Successfully!").show();
                     clearFields();
                     refreshBusIds();
                     refreshDriverIds();
-                    BusFormController.getController().loadAllBuses();
+                    if (BusFormController.getController() != null) {
+                        BusFormController.getController().loadAllBuses();
+                    }
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void dtpDateOnAction(KeyEvent event) {

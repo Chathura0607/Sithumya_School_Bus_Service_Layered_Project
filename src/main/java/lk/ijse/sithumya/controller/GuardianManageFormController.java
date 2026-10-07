@@ -70,15 +70,21 @@ public class GuardianManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String guardianId = txtId.getText();
+        if (guardianId == null || guardianId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Guardian ID to delete.").show();
+            return;
+        }
 
         try {
             GuardianDTO guardian = guardianBO.searchGuardian(guardianId);
             if (guardian != null) {
                 boolean isDeleted = guardianBO.deleteGuardian(guardianId);
                 if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Guardian Delete Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Guardian Deleted Successfully!").show();
                     clearFields();
-                    GuardianFormController.getController().initialize();
+                    if (GuardianFormController.getController() != null) {
+                        GuardianFormController.getController().initialize();
+                    }
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Guardian Not Found!").show();
@@ -97,11 +103,11 @@ public class GuardianManageFormController {
         String contact = txtContact.getText();
         String email = txtEmail.getText();
         String address = txtAddress.getText();
-        String studentId = String.valueOf(cmbStudentId.getValue());
+        String studentId = cmbStudentId.getValue();
         String emergencyContact = txtPrimaryNumber.getText();
 
-        if (studentId == null || studentId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please select a Student ID.").show();
+        if (studentId == null || studentId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Student ID.").show();
             return;
         }
 
@@ -112,7 +118,9 @@ public class GuardianManageFormController {
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Guardian and Guardianship Saved Successfully!").show();
                     clearFields();
-                    GuardianFormController.getController().initialize();
+                    if (GuardianFormController.getController() != null) {
+                        GuardianFormController.getController().initialize();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to save guardian and guardianship!").show();
                 }
@@ -120,13 +128,17 @@ public class GuardianManageFormController {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String guardianId = txtId.getText();
+        if (guardianId == null || guardianId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Guardian ID to search.").show();
+            return;
+        }
 
         try {
             GuardianDTO guardian = guardianBO.searchGuardian(guardianId);
@@ -150,8 +162,13 @@ public class GuardianManageFormController {
         String contact = txtContact.getText();
         String email = txtEmail.getText();
         String address = txtAddress.getText();
-        String studentId = String.valueOf(cmbStudentId.getValue());
+        String studentId = cmbStudentId.getValue();
         String emergencyContact = txtPrimaryNumber.getText();
+
+        if (studentId == null || studentId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Student ID.").show();
+            return;
+        }
 
         if (isTextValid()) {
             GuardianDTO guardian = new GuardianDTO(guardianId, name, relation, contact, email, address);
@@ -161,7 +178,9 @@ public class GuardianManageFormController {
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Guardian and Guardianship Updated Successfully!").show();
                     clearFields();
-                    GuardianFormController.getController().initialize();
+                    if (GuardianFormController.getController() != null) {
+                        GuardianFormController.getController().initialize();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to update guardian and guardianship!").show();
                 }
@@ -169,9 +188,10 @@ public class GuardianManageFormController {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void cmbStudentIdOnAction(ActionEvent event) {

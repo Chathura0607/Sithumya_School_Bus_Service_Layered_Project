@@ -94,9 +94,12 @@ public class MainDashboardFormController {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-        barChart.getData().add(series);
-        for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
-            n.setStyle("-fx-bar-fill: #E0A383;");
+        if (series != null) {
+            barChart.getData().clear();
+            barChart.getData().add(series);
+            for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
+                n.setStyle("-fx-bar-fill: #4361ee;");
+            }
         }
     }
 

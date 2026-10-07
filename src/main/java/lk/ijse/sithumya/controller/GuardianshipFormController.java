@@ -59,7 +59,7 @@ public class GuardianshipFormController {
                 ));
             }
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

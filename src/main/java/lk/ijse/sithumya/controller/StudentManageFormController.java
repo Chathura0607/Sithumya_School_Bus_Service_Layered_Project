@@ -53,13 +53,15 @@ public class StudentManageFormController {
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
         String studentId = cmbStudentId.getValue();
-        if (studentId != null && !studentId.isEmpty()) {
+        if (studentId != null && !studentId.trim().isEmpty()) {
             try {
                 if (studentBO.deleteStudentAndFee(studentId)) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student Deleted Successfully!").show();
                     clearFields();
                     initialize();
-                    StudentFormController.getController().initialize();
+                    if (StudentFormController.getController() != null) {
+                        StudentFormController.getController().initialize();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Student Not Found!").show();
                     clearFields();
@@ -74,16 +76,29 @@ public class StudentManageFormController {
 
     @FXML
     private void btnSaveOnAction(ActionEvent event) {
+        if (cmbBusId.getValue() == null || cmbPlanId.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID and Payment Plan.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Date of Birth.").show();
+            return;
+        }
+
         if (isTextValid()) {
             try {
                 StudentDTO studentDTO = createStudentDTOFromForm();
+                if (studentDTO == null) return;
                 FeeDTO feeDTO = createFeeDTOFromStudent(studentDTO);
 
                 if (studentBO.saveStudentAndFee(studentDTO, feeDTO)) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student and fee saved successfully!").show();
                     initialize();
                     clearFields();
-                    StudentFormController.getController().initialize();
+                    if (StudentFormController.getController() != null) {
+                        StudentFormController.getController().initialize();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to save student and fee!").show();
                 }
@@ -91,14 +106,14 @@ public class StudentManageFormController {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
     @FXML
     private void btnSearchOnAction(ActionEvent event) {
         String studentId = cmbStudentId.getValue();
-        if (studentId != null && !studentId.isEmpty()) {
+        if (studentId != null && !studentId.trim().isEmpty()) {
             try {
                 StudentDTO studentDTO = studentBO.searchStudent(studentId);
                 if (studentDTO != null) {
@@ -118,14 +133,25 @@ public class StudentManageFormController {
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
         String studentId = cmbStudentId.getValue();
-        if (studentId == null || studentId.isEmpty()) {
+        if (studentId == null || studentId.trim().isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please select a Student ID.").show();
+            return;
+        }
+
+        if (cmbBusId.getValue() == null || cmbPlanId.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Bus ID and Payment Plan.").show();
+            return;
+        }
+
+        if (dtpDate.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select Date of Birth.").show();
             return;
         }
 
         if (isTextValid()) {
             try {
                 StudentDTO studentDTO = createStudentDTOFromForm();
+                if (studentDTO == null) return;
                 studentDTO.setStudentId(studentId);
                 FeeDTO feeDTO = createFeeDTOFromStudent(studentDTO);
 
@@ -133,7 +159,9 @@ public class StudentManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student and fee updated successfully!").show();
                     initialize();
                     clearFields();
-                    StudentFormController.getController().initialize();
+                    if (StudentFormController.getController() != null) {
+                        StudentFormController.getController().initialize();
+                    }
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to update student and fee!").show();
                 }
@@ -141,7 +169,7 @@ public class StudentManageFormController {
                 new Alert(Alert.AlertType.ERROR, "Failed to update student and fee: " + e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
 
@@ -170,6 +198,7 @@ public class StudentManageFormController {
         txtSchool.clear();
         txtDistance.clear();
         dtpDate.setValue(null);
+        if (dtpDate.getEditor() != null) dtpDate.getEditor().clear();
         cmbBusId.getSelectionModel().clearSelection();
         cmbPlanId.getSelectionModel().clearSelection();
         cmbStudentId.getSelectionModel().clearSelection();
@@ -205,10 +234,11 @@ public class StudentManageFormController {
     }
 
     private boolean isTextValid() {
-        return Regex.setTextColor(lk.ijse.sithumya.util.TextField.NAME, txtName) &&
-                Regex.setTextColor(lk.ijse.sithumya.util.TextField.DATE, dtpDate.getEditor()) &&
-                Regex.setTextColor(lk.ijse.sithumya.util.TextField.NAME, txtSchool) &&
-                Regex.setTextColor(lk.ijse.sithumya.util.TextField.DISTANCE, txtDistance);
+        boolean nameValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.NAME, txtName);
+        boolean schoolValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.NAME, txtSchool);
+        boolean distanceValid = Regex.setTextColor(lk.ijse.sithumya.util.TextField.DISTANCE, txtDistance);
+
+        return nameValid && schoolValid && distanceValid && dtpDate.getValue() != null;
     }
 
     public void initialize() {
@@ -259,9 +289,17 @@ public class StudentManageFormController {
     private StudentDTO createStudentDTOFromForm() {
         String studentId = nextStudentId;
         String name = txtName.getText();
+        if (dtpDate.getValue() == null) {
+            return null;
+        }
         Date dateOfBirth = Date.valueOf(dtpDate.getValue());
         String school = txtSchool.getText();
-        double distance = Double.parseDouble(txtDistance.getText());
+        double distance = 0.0;
+        try {
+            distance = Double.parseDouble(txtDistance.getText());
+        } catch (NumberFormatException e) {
+            return null;
+        }
         String busId = cmbBusId.getValue();
         String planId = cmbPlanId.getValue();
 
@@ -277,3 +315,4 @@ public class StudentManageFormController {
         return studentDTO;
     }
 }
+

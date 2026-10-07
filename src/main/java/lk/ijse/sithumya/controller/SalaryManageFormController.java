@@ -37,6 +37,10 @@ public class SalaryManageFormController {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String driverId = cmbDriverId.getValue();
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Driver ID to search.").show();
+            return;
+        }
 
         try {
             DriverDTO driver = salaryBO.salarySearchByDriverId(driverId);
@@ -55,25 +59,33 @@ public class SalaryManageFormController {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String driverId = cmbDriverId.getValue();
-        double salary = Double.parseDouble(txtMonthlySalary.getText());
-        double payment = Double.parseDouble(txtPayment.getText());
-        double paymentDue = salary - payment;
+        if (driverId == null || driverId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Driver ID.").show();
+            return;
+        }
 
         if (isTextValid()) {
             try {
+                double salary = Double.parseDouble(txtMonthlySalary.getText());
+                double payment = Double.parseDouble(txtPayment.getText());
+                double paymentDue = Math.max(0, salary - payment);
+
                 boolean isUpdated = salaryBO.updateSalary(new DriverDTO(driverId, salary, payment, paymentDue));
                 if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Salary Update Successfully!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "Salary Updated Successfully!").show();
                     clearFields();
-                    SalaryFormController.getController().initialize();
+                    if (SalaryFormController.getController() != null) {
+                        SalaryFormController.getController().initialize();
+                    }
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
         }
     }
+
 
     @FXML
     void txtPaymentOnKeyReleased(KeyEvent event) {

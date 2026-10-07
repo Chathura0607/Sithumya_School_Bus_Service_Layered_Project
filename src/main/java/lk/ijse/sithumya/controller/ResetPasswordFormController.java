@@ -45,19 +45,35 @@ public class ResetPasswordFormController {
 
     @FXML
     void btnResetOnAction(ActionEvent event) {
-        String enteredCode = txtVerificationCode.getText();
+        String enteredCode = txtVerificationCode.getText() != null ? txtVerificationCode.getText().trim() : "";
 
-        if (enteredCode.equals(verificationCode)) {
+        if (verificationCode == null || verificationCode.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please request a verification code first by clicking 'Get Code'!").show();
+            return;
+        }
+
+        if (enteredCode.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter the verification code!").show();
+            return;
+        }
+
+        if (txtUserID.getText().trim().isEmpty() || txtUsername.getText().trim().isEmpty() || pwfPassword.getText().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill in User ID, Username, and New Password!").show();
+            return;
+        }
+
+        if (enteredCode.equals(verificationCode.trim())) {
             try {
-                UserDTO userDTO = new UserDTO(txtUserID.getText(), txtUsername.getText(), pwfPassword.getText());
+                UserDTO userDTO = new UserDTO(txtUserID.getText().trim(), txtUsername.getText().trim(), pwfPassword.getText().trim());
                 userBO.resetPassword(userDTO);
                 clearFields();
-                new Alert(Alert.AlertType.INFORMATION, "Password reset successfully.").show();
+                new Alert(Alert.AlertType.INFORMATION, "Password reset successfully! You can now log in with your new password.").show();
+                Navigation.navigateToLoginForm();
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, "OOPS! Something went wrong").show();
+                new Alert(Alert.AlertType.ERROR, "Password reset failed: " + e.getMessage()).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid verification code.").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid verification code. Please check your email and try again!").show();
         }
     }
 

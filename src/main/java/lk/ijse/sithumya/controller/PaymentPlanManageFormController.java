@@ -37,6 +37,10 @@ public class PaymentPlanManageFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String paymentPlanId = cmbPlanId.getValue();
+        if (paymentPlanId == null || paymentPlanId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Plan ID to delete!").show();
+            return;
+        }
 
         try {
             PaymentPlanDTO paymentPlan = paymentPlanBO.searchPaymentPlan(paymentPlanId);
@@ -47,7 +51,10 @@ public class PaymentPlanManageFormController {
                     new Alert(Alert.AlertType.CONFIRMATION, "Plan Deleted Successfully!").show();
                     clearFields();
                     refreshPlanIds();
-                    PaymentPlanFormController.getController().initialize();
+                    generateNewPlanId();
+                    if (PaymentPlanFormController.getController() != null) {
+                        PaymentPlanFormController.getController().loadAllPlans();
+                    }
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Plan Not Found!").show();
@@ -60,35 +67,49 @@ public class PaymentPlanManageFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+        if (!isTextValid()) {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
+            return;
+        }
+
         String planId = nextPlanId;
         String planName = txtName.getText();
-        int installments = Integer.parseInt(txtNumberOfInstallments.getText());
+        int installments;
+        try {
+            installments = Integer.parseInt(txtNumberOfInstallments.getText().trim());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Installments count must be a valid integer!").show();
+            return;
+        }
 
-        if (isTextValid()) {
-            try {
-                boolean isSaved = paymentPlanBO.savePlan(new PaymentPlanDTO(planId, planName, installments));
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Plan Saved Successfully!").show();
-                    clearFields();
-                    refreshPlanIds();
-                    PaymentPlanFormController.getController().initialize();
+        try {
+            boolean isSaved = paymentPlanBO.savePlan(new PaymentPlanDTO(planId, planName, installments));
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Plan Saved Successfully!").show();
+                clearFields();
+                refreshPlanIds();
+                generateNewPlanId();
+                if (PaymentPlanFormController.getController() != null) {
+                    PaymentPlanFormController.getController().loadAllPlans();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String planId = cmbPlanId.getValue();
+        if (planId == null || planId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Plan ID to search!").show();
+            return;
+        }
 
         try {
             PaymentPlanDTO paymentPlan = paymentPlanBO.searchPaymentPlan(planId);
 
-            if(paymentPlan != null) {
+            if (paymentPlan != null) {
                 fillFields(paymentPlan);
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Plan Not Found!").show();
@@ -102,23 +123,37 @@ public class PaymentPlanManageFormController {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String planId = cmbPlanId.getValue();
-        String planName = txtName.getText();
-        int installments = Integer.parseInt(txtNumberOfInstallments.getText());
+        if (planId == null || planId.trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Plan ID to update!").show();
+            return;
+        }
 
-        if (isTextValid()) {
-            try {
-                boolean isUpdated = paymentPlanBO.updatePaymentPlan(new PaymentPlanDTO(planId, planName, installments));
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Payment Plan Update Successfully!").show();
-                    clearFields();
-                    refreshPlanIds();
-                    PaymentPlanFormController.getController().initialize();
+        if (!isTextValid()) {
+            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check all fields!").show();
+            return;
+        }
+
+        String planName = txtName.getText();
+        int installments;
+        try {
+            installments = Integer.parseInt(txtNumberOfInstallments.getText().trim());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Installments count must be a valid integer!").show();
+            return;
+        }
+
+        try {
+            boolean isUpdated = paymentPlanBO.updatePaymentPlan(new PaymentPlanDTO(planId, planName, installments));
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Payment Plan Updated Successfully!").show();
+                clearFields();
+                refreshPlanIds();
+                if (PaymentPlanFormController.getController() != null) {
+                    PaymentPlanFormController.getController().loadAllPlans();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid input found. Please check!").show();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -135,11 +170,13 @@ public class PaymentPlanManageFormController {
     private void clearFields() {
         txtName.setText("");
         txtNumberOfInstallments.setText("");
+        Regex.resetColor(txtName, txtNumberOfInstallments);
     }
 
     private void fillFields(PaymentPlanDTO paymentPlan) {
         txtName.setText(paymentPlan.getPlanName());
         txtNumberOfInstallments.setText(String.valueOf(paymentPlan.getNumberOfInstallments()));
+        Regex.resetColor(txtName, txtNumberOfInstallments);
     }
 
     public void initialize() {
@@ -162,18 +199,6 @@ public class PaymentPlanManageFormController {
             cmbPlanId.getItems().addAll(planIds);
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
-    private String generateNextPlanId(String lastPlanId) {
-        if (lastPlanId == null) {
-            return "P001";
-        } else {
-            int lastIdNumeric = Integer.parseInt(lastPlanId.substring(1));
-
-            int nextIdNumeric = lastIdNumeric + 1;
-
-            return String.format("P%03d", nextIdNumeric);
         }
     }
 
