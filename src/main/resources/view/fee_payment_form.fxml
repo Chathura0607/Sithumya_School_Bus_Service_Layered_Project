@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.FeePaymentFormController">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="383.0" text="Monthly Payments Of Students">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblPayments" layoutX="15.0" layoutY="251.0" prefHeight="375.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colStudentId" prefWidth="145.0" text="Student Id" />
+                  <TableColumn fx:id="colPaymentId" prefWidth="145.0" text="Payment Id " />
+                  <TableColumn fx:id="colPlanId" minWidth="0.0" prefWidth="145.0" text="Payment Plan Id" />
+                  <TableColumn fx:id="colAmount" prefWidth="145.0" text="Amount " />
+                  <TableColumn fx:id="colDate" prefWidth="145.0" text="Payment Date" />
+                  <TableColumn fx:id="colIsCompleted" prefWidth="145.0" text="Is Completed" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="710.0" layoutY="14.0" onAction="#btnManageOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Make Payments">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.PaymentFormController">
+   <children>
+      <Pane fx:id="bodyPane" layoutX="23.0" layoutY="17.0" prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="310.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Sithumya" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Financial Managment Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Pane fx:id="lblStudents" layoutX="15.0" layoutY="100.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+               <children>
+                  <Label layoutX="7.0" layoutY="57.0" prefHeight="35.0" prefWidth="220.0" text="Total Plans">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlanCount" layoutX="154.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-students-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="711.0" layoutY="14.0" onAction="#btnPaymentPlanOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Manage Payment Plans">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="711.0" layoutY="68.0" onAction="#btnMonthlyFeeOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Manage Monthly Fee">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <Pane fx:id="lblStudents1" layoutX="15.0" layoutY="220.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #FED3B6;">
+               <children>
+                  <Label layoutX="7.0" layoutY="57.0" prefHeight="35.0" prefWidth="220.0" text="Monthly Income">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblIncome" layoutX="74.0" layoutY="7.0" prefHeight="60.0" prefWidth="175.0" text="00000000">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-students-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="711.0" layoutY="124.0" onAction="#btnPenaltyOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Manage Penalty">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <BarChart fx:id="barChart" layoutX="310.0" layoutY="251.0" prefHeight="400.0" prefWidth="575.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children></Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.MonthlyFeeFormController">
+   <children>
+      <Pane fx:id="bodyPane" prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="15.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Monthly Fee Of Students">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblFee" layoutX="15.0" layoutY="251.0" prefHeight="375.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colFeeId" prefWidth="145.0" text="Fee Id" />
+                  <TableColumn fx:id="colStudentId" minWidth="0.0" prefWidth="145.0" text="Student Id" />
+                  <TableColumn fx:id="colPlanId" prefWidth="145.0" text="Payment Plan Id" />
+                  <TableColumn fx:id="colMonthlyFee" prefWidth="145.0" text="Mothly Fee" />
+                  <TableColumn fx:id="colDiscount" prefWidth="145.0" text="Discount" />
+                  <TableColumn fx:id="colTotal" prefWidth="145.0" text="Total Amount" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="710.0" layoutY="14.0" onAction="#btnSetPlanOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Set Payment Plan">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnManage" focusTraversable="false" layoutX="520.0" layoutY="14.0" onAction="#btnPaymentOnAction" prefHeight="32.0" prefWidth="175.0" stylesheets="@../style/button_style.css" text="Update Payments">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children></Pane>
+   </children>
+</AnchorPane>

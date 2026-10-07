@@ -1,0 +1,175 @@
+#btnLogin {
+    -fx-background-color:  #EA454C;
+    -fx-border-color: #EA454C;/* Button background color */
+    -fx-border-radius: 5px;
+}
+
+#btnLogin:hover {
+    -fx-background-color: #ae333a; /* Button background color on hover */
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+}
+
+#btnReset {
+    -fx-background-color:  #EA454C;
+    -fx-border-color: #EA454C;/* Button background color */
+    -fx-border-radius: 5px;
+}
+
+#btnReset:hover {
+    -fx-background-color: #ae333a; /* Button background color on hover */
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+}
+
+#btnCode {
+    -fx-background-color:  #EA454C;
+    -fx-border-color: #EA454C;/* Button background color */
+    -fx-border-radius: 5px;
+}
+
+#btnCode:hover {
+    -fx-background-color: #ae333a; /* Button background color on hover */
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+}
+
+#btnHome {
+    -fx-background-color: #fbc531;
+    -fx-background-radius: 10px;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+}
+
+#btnHome:hover {
+    -fx-border-radius: 10px;
+    -fx-background-color: #f0a500;
+    -fx-border-color: white;
+    -fx-background-radius: 10px;
+}
+
+#btnLogout {
+    -fx-background-color:  #EA454C;
+    -fx-border-color: #EA454C;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#btnLogout:hover {
+    -fx-background-color: #ae333a;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#btnDashboard {
+    -fx-background-color: #e67e22;
+    -fx-border-color: #e67e22;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#btnDashboard:hover {
+    -fx-background-color: #d35400;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#btnManage {
+    -fx-background-color: #e67e22;
+    -fx-border-color: #e67e22;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnManage:hover {
+    -fx-background-color: #d35400;
+    -fx-border-color: white;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+
+}
+
+#btnSave{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #00ff9f;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+#btnSave:hover{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #007a4b;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnUpdate{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #e1a566;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnUpdate:hover{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #de6e00;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnDelete{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #ff6556;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnDelete:hover{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #bd1904;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnClear{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #a69ea4;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnClear:hover{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #525252;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}
+
+#btnSearch{
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+    -fx-graphic: url(../asserts/icon/icons8-search-50.png);
+}
+
+#btnSearch:hover {
+    -fx-border-radius: 25;
+    -fx-background-color: #2980b9;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 4, 2, 3);
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="675.0" prefWidth="945.0" styleClass="inBody" stylesheets="@../style/background_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.PenaltyFormController">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="900.0" styleClass="inPane" stylesheets="@../style/background_style.css">
+         <children>
+            <Label layoutX="14.0" layoutY="-2.0" prefHeight="102.0" prefWidth="301.0" text="Penalty Of Student Fees">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblPenalty" layoutX="15.0" layoutY="251.0" prefHeight="375.0" prefWidth="870.0">
+               <columns>
+                  <TableColumn fx:id="colPenaltyId" prefWidth="174.0" text="Penalty Id" />
+                  <TableColumn fx:id="colFeeId" minWidth="0.0" prefWidth="174.0" text="Fee Id" />
+                  <TableColumn fx:id="colPenalty" prefWidth="174.0" text="Penalty Amount" />
+                  <TableColumn fx:id="colStudentId" prefWidth="174.0" text="Student Id" />
+                  <TableColumn fx:id="colStudentName" prefWidth="174.0" text="Student Name" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

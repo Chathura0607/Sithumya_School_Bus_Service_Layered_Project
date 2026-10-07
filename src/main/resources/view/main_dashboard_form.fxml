@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sithumya.controller.MainDashboardFormController">
+   <children>
+      <Pane fx:id="bodyPane" prefHeight="675.0" prefWidth="945.0">
+         <children>
+            <Label fx:id="lblTime" layoutX="28.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" text="Label" textAlignment="CENTER">
+               <font>
+                  <Font name="System Italic" size="48.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="28.0" layoutY="76.0" prefHeight="40.0" prefWidth="230.0" text="Label">
+               <font>
+                  <Font name="System Italic" size="24.0" />
+               </font>
+            </Label>
+            <Pane layoutX="712.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+               <children>
+                  <Label layoutX="7.0" layoutY="58.0" prefHeight="35.0" prefWidth="220.0" text="Total Buses">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblBusCount" layoutX="153.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-bus.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="482.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+               <children>
+                  <Label layoutX="7.0" layoutY="58.0" prefHeight="35.0" prefWidth="220.0" text="Total Drivers">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDriverCount" layoutX="153.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-driver-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="253.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+               <children>
+                  <Label layoutX="7.0" layoutY="57.0" prefHeight="35.0" prefWidth="220.0" text="Total Students">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblStudentCount" layoutX="154.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/icon/icons8-students-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label layoutX="616.0" layoutY="230.0" prefHeight="35.0" prefWidth="192.0" style="-fx-background-color: #feb949;" text="Today Payments" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+               <font>
+                  <Font name="SansSerif Bold" size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblTodayPayments" layoutX="482.0" layoutY="276.0" prefHeight="383.0" prefWidth="450.0">
+               <columns>
+                  <TableColumn fx:id="colPaymentId" prefWidth="112.5" text="Payment ID" />
+                  <TableColumn fx:id="colStudentName" prefWidth="112.5" text="Student Name" />
+                  <TableColumn fx:id="colAmount" prefWidth="112.5" text="Amount" />
+                  <TableColumn fx:id="colPlanName" prefWidth="112.5" text="Plan Name" />
+               </columns>
+            </TableView>
+            <Label layoutX="27.0" layoutY="154.0" prefHeight="102.0" prefWidth="182.0" text="Welcome Back">
+               <font>
+                  <Font name="SansSerif Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="217.0" prefHeight="25.0" prefWidth="264.0" text="Sithumya School Transport Service" textFill="#ff5e00" underline="true">
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblUser" layoutX="209.0" layoutY="154.0" prefHeight="102.0" prefWidth="182.0" text="Admin">
+               <font>
+                  <Font name="SansSerif Bold" size="24.0" />
+               </font>
+            </Label>
+            <BarChart fx:id="barChart" layoutX="14.0" layoutY="290.0" prefHeight="400.0" prefWidth="450.0" title="Student Distribution Across Schools">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+            <JFXButton fx:id="btnSave" layoutX="702.0" layoutY="133.0" onAction="#btnSendOnAction" prefHeight="30.0" prefWidth="230.0" stylesheets="@../style/button_style.css" text="Send Bus Arrival &amp; Return Time" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
