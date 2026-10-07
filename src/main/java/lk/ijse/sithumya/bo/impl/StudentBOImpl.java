@@ -109,8 +109,6 @@ public class StudentBOImpl implements StudentBO {
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
 
@@ -151,12 +149,10 @@ public class StudentBOImpl implements StudentBO {
             }
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
-            System.err.println("Exception occurred: " + e.getMessage());
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
+
 
     @Override
     public boolean deleteStudentAndFee(String studentId) throws SQLException, ClassNotFoundException {

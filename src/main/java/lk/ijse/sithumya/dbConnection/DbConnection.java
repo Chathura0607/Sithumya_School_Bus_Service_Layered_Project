@@ -9,19 +9,21 @@ public class DbConnection {
     private Connection connection;
 
     private DbConnection() throws SQLException {
-        connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/school_bus_service_management_system",
-                "root",
-                "Chathu0607"
-        );
-        //System.out.println(connection.toString());
+        String url = System.getProperty("db.url", "jdbc:mysql://localhost:3306/school_bus_service_management_system?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
+        String user = System.getProperty("db.user", "root");
+        String password = System.getProperty("db.password", "Chathu0607");
+        connection = DriverManager.getConnection(url, user, password);
     }
 
     public static DbConnection getInstance() throws SQLException {
-        return (dbConnection == null) ? dbConnection = new DbConnection() : dbConnection;
+        if (dbConnection == null || dbConnection.getConnection() == null || dbConnection.getConnection().isClosed()) {
+            dbConnection = new DbConnection();
+        }
+        return dbConnection;
     }
 
     public Connection getConnection() {
         return connection;
     }
 }
+

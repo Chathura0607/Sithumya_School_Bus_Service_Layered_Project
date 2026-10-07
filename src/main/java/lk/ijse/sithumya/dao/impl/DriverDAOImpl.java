@@ -56,7 +56,7 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SqlUtil.sql("DELETE FROM Driver WHERE Driver_ID = ?", id);
     }
 
     @Override
@@ -66,7 +66,16 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
-        return "";
+        ResultSet resultSet = SqlUtil.sql("SELECT Driver_ID FROM Driver WHERE Driver_ID LIKE 'D%' ORDER BY LENGTH(Driver_ID) DESC, Driver_ID DESC LIMIT 1");
+        if (resultSet.next()) {
+            String id = resultSet.getString("Driver_ID");
+            String numericPart = id.replaceAll("\\D", "");
+            if (!numericPart.isEmpty()) {
+                int newId = Integer.parseInt(numericPart) + 1;
+                return String.format("D%03d", newId);
+            }
+        }
+        return "D001";
     }
 
     @Override

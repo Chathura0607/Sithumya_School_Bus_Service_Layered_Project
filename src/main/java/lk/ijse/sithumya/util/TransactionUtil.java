@@ -1,5 +1,6 @@
 package lk.ijse.sithumya.util;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import lk.ijse.sithumya.dbConnection.DbConnection;
 
@@ -7,33 +8,40 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionUtil {
-    public static Connection connection;
 
-    static {
-        try {
-            connection = DbConnection.getInstance().getConnection();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+    private static Connection getConnection() throws SQLException {
+        return DbConnection.getInstance().getConnection();
     }
 
     public static void startTransaction() throws SQLException {
-        connection.setAutoCommit(false);
+        Connection con = getConnection();
+        if (con != null) {
+            con.setAutoCommit(false);
+        }
     }
 
     public static void endTransaction() {
         try {
-            connection.commit();
+            Connection con = getConnection();
+            if (con != null && !con.getAutoCommit()) {
+                con.commit();
+                con.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Transaction commit error: " + e.getMessage()).show());
         }
     }
 
     public static void rollBack() {
         try {
-            connection.rollback();
+            Connection con = getConnection();
+            if (con != null && !con.getAutoCommit()) {
+                con.rollback();
+                con.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Transaction rollback error: " + e.getMessage()).show());
         }
     }
 }
+

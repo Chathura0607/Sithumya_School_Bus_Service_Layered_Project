@@ -35,12 +35,12 @@ public class QueryDAOImpl implements QueryDAO {
     @Override
     public ArrayList<TodayPayments> loadTodayPayments() throws SQLException {
         ArrayList<TodayPayments> allTodayPayments = new ArrayList<>();
-        ResultSet resultSet = SqlUtil.sql("SELECT DISTINCT p.Payment_ID, s.Name AS Student_Name, pp.Name AS Payment_Plan_Name, p.Amount AS Payment_Amount \n" +
-                "FROM Payment p \n" +
-                "JOIN Fee f ON p.Payment_Plan_ID = f.Payment_Plan_ID \n" +
-                "JOIN Student s ON f.Student_ID = s.Student_ID \n" +
-                "JOIN Payment_Plan pp ON f.Payment_Plan_ID = pp.Payment_Plan_ID \n" +
-                "WHERE DATE(p.Payment_Date) = CURDATE();");
+        ResultSet resultSet = SqlUtil.sql("SELECT DISTINCT p.Payment_ID, s.Name AS Student_Name, pp.Name AS Payment_Plan_Name, p.Amount AS Payment_Amount " +
+                "FROM Payment p " +
+                "JOIN Student s ON p.Student_ID = s.Student_ID " +
+                "JOIN Payment_Plan pp ON p.Payment_Plan_ID = pp.Payment_Plan_ID " +
+                "WHERE DATE(p.Payment_Date) = CURDATE() " +
+                "ORDER BY p.Payment_ID DESC;");
 
         while (resultSet.next()) {
             allTodayPayments.add(new TodayPayments(
@@ -48,7 +48,6 @@ public class QueryDAOImpl implements QueryDAO {
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getDouble(4)
-
             ));
         }
         return allTodayPayments;

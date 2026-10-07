@@ -53,21 +53,23 @@ public class BusDAOImpl implements BusDAO {
 
     @Override
     public String generateNewId() throws SQLException {
-        ResultSet resultSet = SqlUtil.sql("SELECT Bus_ID FROM Bus ORDER BY Bus_ID DESC LIMIT 1");
+        ResultSet resultSet = SqlUtil.sql("SELECT Bus_ID FROM Bus ORDER BY LENGTH(Bus_ID) DESC, Bus_ID DESC LIMIT 1");
         if (resultSet.next()) {
             String id = resultSet.getString("Bus_ID");
             String numericPart = id.replaceAll("\\D", "");
-            int newCustomerId = Integer.parseInt(numericPart) + 1;
-            return String.format("B%03d", newCustomerId);
-        } else {
-            return "B001";
+            if (!numericPart.isEmpty()) {
+                int newId = Integer.parseInt(numericPart) + 1;
+                return String.format("B%03d", newId);
+            }
         }
+        return "B001";
     }
 
     @Override
     public boolean delete(String id) throws SQLException {
-        return SqlUtil.sql("DELETE b, s FROM Bus b LEFT JOIN Student s ON b.Bus_ID = s.Bus_ID WHERE b.Bus_ID = ?", id);
+        return SqlUtil.sql("DELETE FROM Bus WHERE Bus_ID = ?", id);
     }
+
 
     @Override
     public Bus search(String id) throws SQLException {

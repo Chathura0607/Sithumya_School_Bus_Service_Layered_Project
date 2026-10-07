@@ -69,10 +69,9 @@ public class PaymentBOImpl implements PaymentBO {
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
+
 
     @Override
     public double getRemainingFeeAmount(String studentId) throws SQLException {

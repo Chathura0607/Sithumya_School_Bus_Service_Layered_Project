@@ -62,8 +62,7 @@ public class FuelingRecordBOImpl implements FuelingRecordBO {
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
 }
+

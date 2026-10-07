@@ -57,25 +57,23 @@ public class BusBOImpl implements BusBO {
             Schedule schedule = new Schedule();
             schedule.setBusId(scheduleDTO.getBusId());
             schedule.setDate(scheduleDTO.getDate());
-            schedule.setTimeType("ARRIVAL");
+            schedule.setTimeType("Arrival");
             schedule.setScheduleTime(scheduleDTO.getScheduleTime());
 
             boolean isSaved = busDAO.saveBusArrivalTime(schedule);
 
             if (isSaved) {
-                EmailService.sendBusArrivalEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
                 TransactionUtil.endTransaction();
+                EmailService.sendBusArrivalEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
+                return true;
             } else {
                 TransactionUtil.rollBack();
-                throw new SQLException("Failed to save bus arrival time!");
+                return false;
             }
         } catch (SQLException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
-        return false;
     }
 
     @Override
@@ -86,26 +84,25 @@ public class BusBOImpl implements BusBO {
             Schedule schedule = new Schedule();
             schedule.setBusId(scheduleDTO.getBusId());
             schedule.setDate(scheduleDTO.getDate());
-            schedule.setTimeType("RETURN");
+            schedule.setTimeType("Return");
             schedule.setScheduleTime(scheduleDTO.getScheduleTime());
 
             boolean isSaved = busDAO.saveBusReturnTime(schedule);
 
             if (isSaved) {
-                EmailService.sendBusReturnEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
                 TransactionUtil.endTransaction();
+                EmailService.sendBusReturnEmail(scheduleDTO.getBusId(), scheduleDTO.getScheduleTime().toString());
+                return true;
             } else {
                 TransactionUtil.rollBack();
-                throw new SQLException("Failed to save bus return time!");
+                return false;
             }
         } catch (SQLException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
-        return false;
     }
+
 
     @Override
     public BusDTO searchBus(String busId) throws SQLException, ClassNotFoundException {

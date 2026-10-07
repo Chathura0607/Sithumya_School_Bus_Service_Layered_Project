@@ -86,8 +86,6 @@ public class GuardianBOImpl implements GuardianBO {
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
 
@@ -115,8 +113,7 @@ public class GuardianBOImpl implements GuardianBO {
         } catch (SQLException | ClassNotFoundException e) {
             TransactionUtil.rollBack();
             throw e;
-        } finally {
-            TransactionUtil.endTransaction();
         }
     }
+
 }
