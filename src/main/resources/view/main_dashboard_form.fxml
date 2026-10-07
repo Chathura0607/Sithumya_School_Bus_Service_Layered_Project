@@ -27,87 +27,87 @@
                   <Font name="System Italic" size="24.0" />
                </font>
             </Label>
-            <Pane layoutX="712.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+            <Pane layoutX="712.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-border-color: #E2E8F0; -fx-border-width: 1px; -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.06), 8, 0, 0, 2);">
                <children>
-                  <Label layoutX="7.0" layoutY="58.0" prefHeight="35.0" prefWidth="220.0" text="Total Buses">
+                  <Label layoutX="14.0" layoutY="58.0" prefHeight="30.0" prefWidth="140.0" text="Total Buses" textFill="#64748B">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblBusCount" layoutX="153.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                  <Label fx:id="lblBusCount" layoutX="145.0" layoutY="18.0" prefHeight="60.0" prefWidth="65.0" text="00" textFill="#2563EB">
                      <font>
-                        <Font name="System Bold" size="52.0" />
+                        <Font name="System Bold" size="42.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="14.0" layoutY="14.0">
                      <image>
                         <Image url="@../asserts/icon/icons8-bus.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="482.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+            <Pane layoutX="482.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-border-color: #E2E8F0; -fx-border-width: 1px; -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.06), 8, 0, 0, 2);">
                <children>
-                  <Label layoutX="7.0" layoutY="58.0" prefHeight="35.0" prefWidth="220.0" text="Total Drivers">
+                  <Label layoutX="14.0" layoutY="58.0" prefHeight="30.0" prefWidth="140.0" text="Total Drivers" textFill="#64748B">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblDriverCount" layoutX="153.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                  <Label fx:id="lblDriverCount" layoutX="145.0" layoutY="18.0" prefHeight="60.0" prefWidth="65.0" text="00" textFill="#0EA5E9">
                      <font>
-                        <Font name="System Bold" size="52.0" />
+                        <Font name="System Bold" size="42.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="14.0" layoutY="14.0">
                      <image>
                         <Image url="@../asserts/icon/icons8-driver-64.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="253.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FED3B6;">
+            <Pane layoutX="253.0" layoutY="14.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-border-color: #E2E8F0; -fx-border-width: 1px; -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.06), 8, 0, 0, 2);">
                <children>
-                  <Label layoutX="7.0" layoutY="57.0" prefHeight="35.0" prefWidth="220.0" text="Total Students">
+                  <Label layoutX="14.0" layoutY="58.0" prefHeight="30.0" prefWidth="140.0" text="Total Students" textFill="#64748B">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblStudentCount" layoutX="154.0" layoutY="7.0" prefHeight="60.0" prefWidth="60.0" text="00">
+                  <Label fx:id="lblStudentCount" layoutX="145.0" layoutY="18.0" prefHeight="60.0" prefWidth="65.0" text="00" textFill="#10B981">
                      <font>
-                        <Font name="System Bold" size="52.0" />
+                        <Font name="System Bold" size="42.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="7.0" layoutY="7.0">
+                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="14.0" layoutY="14.0">
                      <image>
                         <Image url="@../asserts/icon/icons8-students-64.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Label layoutX="616.0" layoutY="230.0" prefHeight="35.0" prefWidth="192.0" style="-fx-background-color: #feb949;" text="Today Payments" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+            <Label layoutX="482.0" layoutY="230.0" prefHeight="35.0" prefWidth="240.0" text="Today Payments" textFill="#1E293B">
                <font>
-                  <Font name="SansSerif Bold" size="24.0" />
+                  <Font name="SansSerif Bold" size="20.0" />
                </font>
             </Label>
-            <TableView fx:id="tblTodayPayments" layoutX="482.0" layoutY="276.0" prefHeight="383.0" prefWidth="450.0">
+            <TableView fx:id="tblTodayPayments" layoutX="482.0" layoutY="276.0" prefHeight="383.0" prefWidth="450.0" stylesheets="@../style/background_style.css">
                <columns>
-                  <TableColumn fx:id="colPaymentId" prefWidth="112.5" text="Payment ID" />
-                  <TableColumn fx:id="colStudentName" prefWidth="112.5" text="Student Name" />
-                  <TableColumn fx:id="colAmount" prefWidth="112.5" text="Amount" />
-                  <TableColumn fx:id="colPlanName" prefWidth="112.5" text="Plan Name" />
+                  <TableColumn fx:id="colPaymentId" prefWidth="100.0" text="Payment ID" />
+                  <TableColumn fx:id="colStudentName" prefWidth="120.0" text="Student Name" />
+                  <TableColumn fx:id="colAmount" prefWidth="110.0" text="Amount" />
+                  <TableColumn fx:id="colPlanName" prefWidth="110.0" text="Plan Name" />
                </columns>
             </TableView>
-            <Label layoutX="27.0" layoutY="154.0" prefHeight="102.0" prefWidth="182.0" text="Welcome Back">
+            <Label layoutX="27.0" layoutY="154.0" prefHeight="40.0" prefWidth="180.0" text="Welcome Back," textFill="#1E293B">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="77.0" layoutY="217.0" prefHeight="25.0" prefWidth="264.0" text="Sithumya School Transport Service" textFill="#ff5e00" underline="true">
+            <Label layoutX="27.0" layoutY="198.0" prefHeight="25.0" prefWidth="320.0" text="Sithumya School Transport Service" textFill="#2563EB">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblUser" layoutX="209.0" layoutY="154.0" prefHeight="102.0" prefWidth="182.0" text="Admin">
+            <Label fx:id="lblUser" layoutX="205.0" layoutY="154.0" prefHeight="40.0" prefWidth="182.0" text="Admin" textFill="#2563EB">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>

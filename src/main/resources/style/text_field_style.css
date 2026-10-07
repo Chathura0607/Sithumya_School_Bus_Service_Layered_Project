@@ -1,59 +1,89 @@
-#txtUserID{
-    -fx-border-color: #f33e2e;
-    -fx-border-width:  0 0 2 5;
-    -fx-background-color: white;
+/* Modern Input & TextField Styling */
+
+.text-field, .password-field {
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #1E293B;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-padding: 8px 12px;
 }
 
-#txtUserID:focused {
-    -fx-border-color: #feb949;
-    -fx-border-width: 0 0 3 6;
-    -fx-background-color: white;
-    -fx-background-insets: 0;
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #2563EB;
+    -fx-border-width: 1.8px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.15), 6, 0, 0, 0);
 }
 
-#txtUsername{
-    -fx-border-color: #f33e2e;
-    -fx-border-width:  0 0 2 5;
-    -fx-background-color: white;
+#txtUserID, #txtUsername, #pwfPassword, #txtVerificationCode {
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #1E293B;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-padding: 8px 12px;
 }
 
-#txtUsername:focused {
-    -fx-border-color: #feb949;
-    -fx-border-width: 0 0 3 6;
-    -fx-background-color: white;
-    -fx-background-insets: 0;
+#txtUserID:focused, #txtUsername:focused, #pwfPassword:focused, #txtVerificationCode:focused {
+    -fx-border-color: #2563EB;
+    -fx-border-width: 1.8px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.18), 6, 0, 0, 0);
 }
 
-#pwfPassword{
-    -fx-border-color: #f33e2e;
-    -fx-border-width:  0 0 2 5;
-    -fx-background-color: white;
+.textField {
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+    -fx-font-size: 13px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 1.5px;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E293B;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-padding: 8px 12px;
 }
 
-#pwfPassword:focused {
-    -fx-border-color: #feb949;
-    -fx-border-width: 0 0 3 6;
-    -fx-background-color: white;
-    -fx-background-insets: 0;
+.textField:focused {
+    -fx-border-color: #2563EB;
+    -fx-border-width: 1.8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.18), 6, 0, 0, 0);
 }
 
-#txtVerificationCode{
-    -fx-border-color: #f33e2e;
-    -fx-border-width:  0 0 2 5;
-    -fx-background-color: white;
+/* ComboBox & DatePicker Styling */
+.combo-box, .date-picker {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
 }
 
-#txtVerificationCode:focused {
-    -fx-border-color: #feb949;
-    -fx-border-width: 0 0 3 6;
-    -fx-background-color: white;
-    -fx-background-insets: 0;
+.combo-box:focused, .date-picker:focused {
+    -fx-border-color: #2563EB;
+    -fx-border-width: 1.8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.18), 6, 0, 0, 0);
 }
 
-.textField{
-    -fx-font-size: 12;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-border-color: black;
-    -fx-text-fill: #000000;
+.combo-box .list-cell {
+    -fx-text-fill: #1E293B;
+    -fx-padding: 4px 8px;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);
 }
