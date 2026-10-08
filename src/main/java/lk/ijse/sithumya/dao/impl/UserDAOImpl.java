@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public ArrayList getAll() throws SQLException {
+    public ArrayList<User> getAll() throws SQLException {
         return null;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
     @Override
-    public ArrayList getAll() throws SQLException {
+    public ArrayList<Student> getAll() throws SQLException {
         ArrayList<Student> allStudents = new ArrayList<>();
         ResultSet resultSet = SqlUtil.sql("SELECT * FROM Student");
         while (resultSet.next()) {

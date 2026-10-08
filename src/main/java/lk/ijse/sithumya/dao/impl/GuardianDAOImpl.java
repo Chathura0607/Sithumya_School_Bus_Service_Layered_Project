@@ -21,7 +21,7 @@ public class GuardianDAOImpl implements GuardianDAO {
     }
 
     @Override
-    public ArrayList getAll() throws SQLException {
+    public ArrayList<Guardian> getAll() throws SQLException {
         ArrayList<Guardian> allGuardians = new ArrayList<>();
         ResultSet resultSet = SqlUtil.sql("SELECT * FROM Guardian");
         while (resultSet.next()) {

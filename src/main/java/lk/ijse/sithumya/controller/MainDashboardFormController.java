@@ -29,16 +29,16 @@ public class MainDashboardFormController {
     private BarChart<String, Number> barChart;
 
     @FXML
-    private TableColumn<?, ?> colAmount;
+    private TableColumn<TodayPaymentsTm, Double> colAmount;
 
     @FXML
-    private TableColumn<?, ?> colPaymentId;
+    private TableColumn<TodayPaymentsTm, Integer> colPaymentId;
 
     @FXML
-    private TableColumn<?, ?> colPlanName;
+    private TableColumn<TodayPaymentsTm, String> colPlanName;
 
     @FXML
-    private TableColumn<?, ?> colStudentName;
+    private TableColumn<TodayPaymentsTm, String> colStudentName;
 
     @FXML
     private Label lblBusCount;
@@ -59,7 +59,7 @@ public class MainDashboardFormController {
     private Label lblUser;
 
     @FXML
-    private TableView tblTodayPayments;
+    private TableView<TodayPaymentsTm> tblTodayPayments;
 
     private DashboardBO dashboardBO = (DashboardBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.DASHBOARD);
 

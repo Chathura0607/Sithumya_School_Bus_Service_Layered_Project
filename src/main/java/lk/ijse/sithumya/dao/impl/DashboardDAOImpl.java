@@ -47,7 +47,7 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     @Override
-    public ArrayList getAll() throws SQLException {
+    public ArrayList<Object> getAll() throws SQLException {
         return null;
     }
 

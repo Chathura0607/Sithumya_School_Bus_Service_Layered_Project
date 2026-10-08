@@ -19,19 +19,19 @@ import java.util.ArrayList;
 public class GuardianFormController {
 
     @FXML
-    private TableColumn<?, ?> colAddress;
+    private TableColumn<GuardianTm, String> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colContact;
+    private TableColumn<GuardianTm, String> colContact;
 
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<GuardianTm, String> colEmail;
 
     @FXML
-    private TableColumn<?, ?> colGuardianId;
+    private TableColumn<GuardianTm, String> colGuardianId;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<GuardianTm, String> colName;
 
     @FXML
     private TableView<GuardianTm> tblGuardian;
@@ -76,10 +76,10 @@ public class GuardianFormController {
     }
 
     private void setCellValueFactory() {
-        colGuardianId.setCellValueFactory(new PropertyValueFactory("guardianId"));
-        colName.setCellValueFactory(new PropertyValueFactory("name"));
-        colContact.setCellValueFactory(new PropertyValueFactory("contact"));
-        colEmail.setCellValueFactory(new PropertyValueFactory("email"));
-        colAddress.setCellValueFactory(new PropertyValueFactory("address"));
+        colGuardianId.setCellValueFactory(new PropertyValueFactory<>("guardianId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
     }
 }

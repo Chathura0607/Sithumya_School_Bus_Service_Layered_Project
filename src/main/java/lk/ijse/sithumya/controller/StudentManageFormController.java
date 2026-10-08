@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.BusBO;
-import lk.ijse.sithumya.bo.custom.FeeBO;
 import lk.ijse.sithumya.bo.custom.PaymentPlanBO;
 import lk.ijse.sithumya.bo.custom.StudentBO;
 import lk.ijse.sithumya.dto.FeeDTO;
@@ -41,7 +40,6 @@ public class StudentManageFormController {
     private String nextStudentId;
 
     private StudentBO studentBO = (StudentBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.STUDENT);
-    private FeeBO feeBO = (FeeBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.FEE);
     private BusBO busBO = (BusBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.BUS);
     private PaymentPlanBO paymentPlanBO = (PaymentPlanBO) BOFactory.getBOFactory().getBOType(BOFactory.BOTypes.PLAN);
 

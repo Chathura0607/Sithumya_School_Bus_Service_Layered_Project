@@ -27,22 +27,22 @@ public class StudentFormController {
     private Pane bodyPane;
 
     @FXML
-    private TableColumn<?, ?> colBusId;
+    private TableColumn<StudentTm, String> colBusId;
 
     @FXML
-    private TableColumn<?, ?> colDateOfBirth;
+    private TableColumn<StudentTm, ?> colDateOfBirth;
 
     @FXML
-    private TableColumn<?, ?> colDistance;
+    private TableColumn<StudentTm, ?> colDistance;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<StudentTm, String> colName;
 
     @FXML
-    private TableColumn<?, ?> colSchool;
+    private TableColumn<StudentTm, String> colSchool;
 
     @FXML
-    private TableColumn<?, ?> colStudentId;
+    private TableColumn<StudentTm, String> colStudentId;
 
     @FXML
     private Label lblStudentCount;
@@ -102,12 +102,12 @@ public class StudentFormController {
     }
 
     private void setCellValueFactory() {
-        colStudentId.setCellValueFactory(new PropertyValueFactory("studentId"));
-        colName.setCellValueFactory(new PropertyValueFactory("name"));
-        colDateOfBirth.setCellValueFactory(new PropertyValueFactory("dateOfBirth"));
-        colSchool.setCellValueFactory(new PropertyValueFactory("schoolName"));
-        colDistance.setCellValueFactory(new PropertyValueFactory("distanceToSchool"));
-        colBusId.setCellValueFactory(new PropertyValueFactory("busId"));
+        colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        colSchool.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+        colDistance.setCellValueFactory(new PropertyValueFactory<>("distanceToSchool"));
+        colBusId.setCellValueFactory(new PropertyValueFactory<>("busId"));
     }
 
     @FXML

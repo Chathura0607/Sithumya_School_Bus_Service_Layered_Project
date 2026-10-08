@@ -1,7 +1,5 @@
 package lk.ijse.sithumya.sendMail;
 
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import lk.ijse.sithumya.bo.BOFactory;
 import lk.ijse.sithumya.bo.custom.GuardianBO;
 
