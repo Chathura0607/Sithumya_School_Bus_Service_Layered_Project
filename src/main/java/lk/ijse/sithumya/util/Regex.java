@@ -100,5 +100,14 @@ public class Regex {
             return false;
         }
     }
+
+    public static void resetColor(javafx.scene.control.TextField... fields) {
+        if (fields == null) return;
+        for (javafx.scene.control.TextField field : fields) {
+            if (field != null) {
+                field.setStyle("");
+            }
+        }
+    }
 }
 
